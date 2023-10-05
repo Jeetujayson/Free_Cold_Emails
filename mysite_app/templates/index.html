@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block title %}Free Cold Emails | For Job Seekers and Freelancers{% endblock %}
+{% load static %}
+
+    {% block content %}
+    <main>
+      <section id="hero-section">
+        <div id="email-animation"></div>
+
+        <h1 >Free Cold Email Automation Tools</h1>
+        
+        <p>Free Cold Email Automation and Email Verification Services for Job Seekers and Freelancers</p>
+        <a href="#featured-email-solutions" class="cta-button">Explore Tools</a>
+      </section>
+      
+      <section id="featured-email-solutions" class="gradient-animation">
+        <div class="email-solutions-header">
+          <h2>Featured Email Tools</h2>
+        </div>
+        <div class="email-solutions-container">
+        <div class="email-solution-cards">
+          
+          <div class="email-solution-card">
+            <div id="cold-email-animation"></div>
+
+            <h3>Free Cold Email Automation</h3>
+            <p>Unlock Your Career Potential with Free Cold Email Automation 🚀 <br> Elevate Your Job Search and Freelance Opportunities Today!</p>
+            <a href="#how-it-works" class="cta-button">Try It Out</a>
+          </div>
+          <div class="email-solution-card">
+            <div id="email-verification-animation"></div>
+
+            <h3>Free Email Verification (Coming Soon)</h3>
+            <p>Supercharge Your Emails! Try Our Free Email Checker for Reliable Results. No More Bounces – Just Happy Inboxes! Get Started Now!</p>
+            <a href="#how-it-works" class="cta-button">Try It Out</a>
+          </div>
+        </div>
+      </div>
+      </section>
+      
+      
+
+      <section id="how-it-works">
+        <h2>How it Works</h2>
+        <div id="how-email-automation">
+          <h3>Email Automation</h3>
+          <ul>
+            <li>Sign Up</li>
+            <li>Link Your Sending Emails</li>
+            <li>Upload Your Target Emails</li>
+            <li>Create an Email Template</li>
+            <li>Schedule and Send</li>
+        </ul>
+          <a href="email-automation" class="cta-button">Get Started</a>
+        </div>
+        <div id="how-email-verification">
+          <h3>Email Verification</h3>
+          <ul>
+            <li>Sign Up</li>
+            <li>Upload Raw Target Emails</li>
+            <li>Start Verification</li>
+            <li>Download Verified Emails</li>
+            <li>Start Cold Emailing</li>
+        </ul>
+          <a href="email-verification" class="cta-button">Get Started</a>
+        </div>
+      </section>
+
+      <!-- <section id="how">
+        <h2>How it Works</h2>
+        <p>Learn how our tools work. We offer various tools like fuel price calculator, image editors, and more.</p>
+      </section> -->
+
+      <section id="testimonials">
+        <h2>What Our Users Say</h2>
+        <div class="testimonial">
+          <p>"A much needed service for beginners who are on a budget. This helped me get my first few gigs."</p>
+          <h3>- Jayesh Padvankar</h3>
+        </div>
+        <div class="testimonial">
+          <p>"I am a freelance digital marketer and I used this to test new market niches and find clients"</p>
+          <h3>- Swapnil Devre</h3>
+        </div>
+      </section>
+    </main>
+
+    <div id="about-us">
+      <h2>About Us</h2>
+      <p>Learn more about us and our mission to provide free tools.</p>
+      <a href="{% url 'about_us' %}" class="cta-button">Learn More</a>
+    </div>
+    <div id="contact-us">
+      <h2>Contact Us</h2>
+      <p>Have a question? Contact us through X or Email.</p>
+      <a href="{% url 'contact_us' %}" class="cta-button">Contact</a>
+    </div>
+    {% endblock %}
+
+    
+
+
+
+</body>

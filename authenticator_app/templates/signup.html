@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Signup - Free Cold Emails{% endblock %}
+
+{% block content %}
+<section id="generic-pages">
+    <h1>Sign Up</h1>
+
+    <div class="card">
+    <form method = "post">
+        {% csrf_token %}
+
+        <!-- {{ form.username.label_tag }} {# Display the label if needed #}
+        {{ form.username }} {# This line will render the hidden input for username #} -->
+
+        <!-- {{ form.first_name.label_tag }}
+        {{ form.first_name }}
+        {{ form.last_name.label_tag }}
+        {{ form.last_name }}
+        {{ form.email.label_tag }}
+        {{ form.email }}
+        {{ form.password1.label_tag }}
+        {{ form.password1 }}
+        {{ form.password2.label_tag }}
+        {{ form.password2 }} -->
+
+        {{ form.as_p }}
+
+
+        <button class="global-button" type="submit">Register</button>
+    </form>
+
+    <a href="{% url 'login' %}">Login</a>
+</div>
+</section>
+{% endblock %}

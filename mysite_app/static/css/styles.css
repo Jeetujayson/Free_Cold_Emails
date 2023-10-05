@@ -1,0 +1,843 @@
+/* # page-container {
+
+} */
+
+/* Removes underline from text in HTML elements tagged as <a> (links) and <button> (buttons) by setting text-decoration to none. */
+a, button {
+  text-decoration: none;
+}
+
+.global-button {
+  padding: 10px 20px;
+  background: #0071e3;
+  border: none;
+  border-radius: 30px;
+  font-size: 18px;
+  color: #fff;
+  margin: 5px;
+  }
+  
+.global-button:hover {
+  background: #0c4da2;
+  }
+/*
+ * Global Body Styles
+ * 
+ * - Removes default margin and padding for a clean slate.
+ * - Centers text within the body.
+ * - Sets the default font size, line height, and weight.
+ * - Specifies the font family stack.
+ * - Sets the background color to white.
+ * - Sets the default text color to near-black.
+ * - Normalizes the font style.
+ */
+body {
+    
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.4705882353;
+    font-weight: 400;
+    font-family: 'Roboto', 'FontAwesome', 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    background-color: #fff;
+    color: #1d1d1f;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    /* min-height: 100vh;  */
+
+  }
+
+
+
+/*
+ * Logo Styling
+ * 
+ * - Adds 15px of padding to the top to separate it from other elements.
+ * - Sets the logo width to 200px.
+ * - Centers the logo horizontally using auto margins for left and right.
+ */
+  #logo {
+    padding-top: 15px;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+
+/*
+ * Header Styling
+ * 
+ * - Sets a semi-transparent black background using RGBA.
+ * - Applies a backdrop filter for blur and saturation effects.
+ * - Sets a high z-index to keep the header above other elements.
+ * - Uses block display to take up the full width.
+ * - Removes any margins and sets width to auto for flexibility.
+ * - Ensures a minimum width of auto to adapt to content.
+ * - Sets the font size to 17px.
+ */
+  #header {
+    background: rgba(0, 0, 0, 0.8);
+    /* -webkit-backdrop-filter: saturate(180%) blur(20px); */
+    backdrop-filter: saturate(180%) blur(20px);
+    /* position: center; (ERROR according to ChatGPT) */
+    z-index: 9999;
+    display: block;
+    margin: 0;
+    width: auto;
+    min-width: auto;
+    font-size: 17px;
+  
+  }
+/* ######################################## Heading Styling There is no Heading styling anymore I guess ####################################################### */
+/*
+ * 
+ * 
+ * - Adds a top margin of 130px to position the heading.
+ * - Sets the top padding to 0px.
+ * - Sets the font size to 25px for prominence.
+ * - Adjusts the line height to 1.07143 for better readability.
+ * - Sets the font weight to 600 for a semi-bold appearance.
+ * - Applies a slight negative letter-spacing for text optimization.
+ * - Specifies the font family stack for consistent typography.
+ */
+  #heading {
+    margin-top: 130px;
+    padding-top: 0px;
+    font-size: 25px;
+    line-height: 1.07143;
+    font-weight: 600;
+    letter-spacing: -.005em;
+    /* Already Mentioned in Body */
+
+    /* font-family: 'Roboto', 'FontAwesome', 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;   */
+  }
+
+  /* ############################# BOOK A CALL BUTTON NOT IN USE ################################################################### */
+/*
+ * .book-a-call Styling
+ * 
+ * - Sets the cursor to pointer for better UX.
+ * - Adds padding for button-like appearance.
+ * - Sets background color to blue.
+ * - Removes any borders.
+ * - Rounds the corners with a 30px radius.
+ * - Sets the font size to 20px.
+ * - Sets the text color to white.
+ */
+
+  .book-a-call{
+    cursor: pointer;
+    padding: 10px 20px;
+    background: #06c;
+    border: none;
+    border-radius: 30px;
+    font-size:20px;
+    color: #fff;  
+  } 
+
+ .book-a-call:hover{
+    background: #0071e3;
+  }
+/* ################################################################################################3 */
+/*
+ * .underline Styling
+ * 
+ * - Sets the text color to blue.
+ * - Adds a text shadow for depth.
+ */
+  .underline {
+    color: #0071e3;
+    text-shadow: 1px 1px 2px  black;
+  }
+
+
+/* ############################################ SUBHEADING but i am not sure whether I even have a subheading or not ########################################################################## */
+
+/*
+ * #subheading Styling
+ * 
+ * - Adds a top margin of 40px to position the subheading.
+ */
+  /* #subheading{
+    margin-top: 40px;
+  } */
+
+  /* ########################################## HEADER WITH NAVIGATION MENU ############################################################################ */
+
+header {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  }
+  
+  header nav {
+      
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5px;
+      background: #0071e3;
+      }
+      
+      header nav ul li {
+      margin: auto;
+      }
+      
+      header nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+      }
+      
+      header nav ul li a:hover {
+      color: #FFA500;
+      }
+      
+      header nav ul li a.active {
+      color: #0c4da2;
+      font-weight: bold;
+      }
+      
+      header nav .logo {
+      font-size: 24px;
+      font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+      }
+      
+      header nav .logo:hover {
+      color: #0c4da2;
+      }
+      
+      header nav .menu-toggle {
+      display: none;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+      }
+  /* ######################################  HAMBURGER MENU ################################################################################ */
+  
+  
+  .hamburger-menu {
+    position: relative;
+    
+    
+  }
+  
+  .hamburger-icon {
+    display: none;
+    cursor: pointer;
+    padding: 10px;
+    
+  }
+  
+  .hamburger-icon span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: rgb(255, 255, 255);
+    margin: 5px;
+    
+  }
+  
+  
+  @media only screen and (max-width: 600px) {
+    .nav-menu {
+      display: none;
+    }
+    
+    .nav-menu ul {
+      display: block;
+      width:100%;
+      text-align: center;
+      
+      
+    }
+    .nav-menu ul a {
+      display: block;
+      width:100%;
+      text-align: center;
+      padding-top: 50px;
+      
+  
+    }
+  
+    
+    .nav-menu.show {
+      display: block;
+  
+      height: 600px;
+      /* background: linear-gradient( #333333 40%, #8b1c1c); */
+      background: linear-gradient( #333333 40%, #e300d0);
+    }
+    
+    
+   
+  
+    .hamburger-icon {
+      display: block;
+    }
+    
+  }
+
+/* ################################################# HERO ##################################################################### */
+#hero-section {
+  /* background-image: linear-gradient(to top, #fff, #b9b9b9);  */
+  background-image: linear-gradient(to top, #f8f8f8, #d8d8d8);
+  padding: 170px 20px;
+  text-align: center;
+  margin: 0px;
+  position: relative;
+  background-color: transparent;
+  z-index: 1;
+  
+  
+  /* margin-bottom: -1px;  */
+  /* Negative margin equal to padding value TO GET RID OF THE WHITE LINE BETWEEN THE HERO AND FEATURED TOOLS SECTION*/
+  }
+  
+  @media (max-width: 768px) {
+    #hero-section {
+      padding: 5px 10px 50px;
+    }
+  }
+  
+  #email-animation {
+    position: absolute;
+    top: -150px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+  
+  @media (max-width: 768px) {
+    #email-animation {
+      margin-top: -10px; 
+      top: -250px;
+  
+    }
+  }
+  
+  
+  
+  
+  /* ################################################# HERO H1 TEXT ##################################################################### */
+  @keyframes shine {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  
+  #hero-section h1 {
+  text-align: center; /* Center-align the content */
+  padding: 0px 20px; /* Add padding to the left and right */
+  margin-top: 160px; 
+  font-size: 70px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: black;  /* Fallback color */
+  position: relative;
+  overflow: hidden;
+
+
+
+  /* z-index: 1; */
+  
+  
+  
+  
+  @supports (-webkit-background-clip: text) {
+    background-image: linear-gradient(to right, #0a56f7, #5851f9, #804bfa, #a041f9, #bd34f6, #db1fdf, #f005c9, #ff00b3, #ff008a, #ff0063, #ff0063, #ff008a, #ff00b3, #f005c9, #db1fdf, #bd34f6, #a041f9, #804bfa, #5851f9, #0a56f7);
+    /* background-image: linear-gradient(to right, #0a56f7, #5851f9, #804bfa, #a041f9, #bd34f6, #db1fdf, #f005c9, #ff00b3, #ff008a, #ff0063, #f7003c, #e51212, #f7003c, #ff0063, #ff008a, #ff00b3, #f005c9, #db1fdf, #bd34f6, #a041f9, #804bfa, #5851f9, #0a56f7); */
+    -webkit-background-clip: text;
+    color: transparent;
+    background-size: 200% auto;
+    animation: shine 10s linear infinite;
+  }
+  }
+  
+  @media (max-width: 768px) {
+    #hero-section h1 {
+      line-height: 1.3;
+      margin-top: 200px; 
+      font-size: 55px; /* Mobile font size */
+    }
+  }
+  /* ################################################# HERO P TEXT ##################################################################### */
+  #hero-section p {
+    
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 30px;
+  /* z-index: 1; */
+  
+  }
+  
+  #hero-section .cta-button {
+  padding: 10px 20px;
+  background: #0071e3;
+  border: none;
+  border-radius: 30px;
+  font-size: 18px;
+  color: #fff;
+  /* z-index: 1; */
+  
+  }
+  
+  #hero-section .cta-button:hover {
+  background: #0c4da2;
+  }
+  
+    /* ############################################ H1 H2 STYLING ########################################################################## */
+/*
+ * h2 Styling
+ * 
+ * - Sets the text color to a light gray.
+ * - Sets the font size to 50px for prominence.
+ * - Adjusts the line height to 1.14286 for readability.
+ * - Sets the font weight to 200 for a lighter appearance.
+ * - Applies slight letter-spacing for text optimization.
+ * - Specifies the font family stack for consistent typography.
+ */
+
+ h1{
+
+  font-size: 50px;
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: 0em;
+
+}
+
+ h2{
+
+  font-size: 60px;
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: 0em;
+
+}
+  /* ###################################################################################################################### */
+
+/*
+ * #image-box Styling
+ * 
+ * - Sets the display to inline-block for positioning.
+ * - Adds a double border style with transparent color.
+ * - Sets padding and dimensions.
+ * - Rounds the corners to create a circle.
+ * - Sets a light gray background.
+ * - Adds inner shadows for depth.
+ * - Applies a drop shadow for a 3D effect.
+ */
+ 
+  /* #image-box{
+    display: inline-block;
+    border-style: double;
+    border-width: 20px;
+    border-color: transparent;
+    padding: 35px 40px;
+    width: 200px;
+    border-radius: 50%;
+    background: #e8e8e8;
+    box-shadow: inset -7px -7px 5px #fff, inset 7px 7px 7px rgba(94, 104, 121, 0.288);
+    filter: drop-shadow( 5px 5px 15px #bdbdbd);
+  } */
+
+      /* ###################################### Gradient Animation ############################################################# */
+      @keyframes gradientAnimation {
+        0% {
+          background-position: 0% 50%;
+        }
+        100% {
+          background-position: 200% 50%;
+        }
+      }
+      
+      .gradient-animation {
+        display: flex;
+        flex-direction: column;
+        /* background: linear-gradient(to right, #fff, #fcddf6); */
+        background: linear-gradient(to right, #f1c8f9, #f8f8f8, #f1c8f9);   
+        padding: 0px 10px 10px; /* Add some padding to the section */
+        animation: gradientAnimation 10s infinite linear;
+        background-size: 200% auto;
+        background-position: 0% 50%;
+
+
+      }
+      
+/* ############################################################################################################################ */
+
+/* ############################################# FEATURED EMAIL SOLUTIONS ##################################################################### */
+
+    #featured-email-solutions {
+      display: flex;
+      flex-direction: column;
+      padding: 0px 0px 10px; /* Add some padding to the section */
+    }
+    
+    .email-solutions-container {
+      max-width: 1600px; /* Content will expand up to 100% of its parent's width */
+      width: auto; /* Allow content to adjust its width based on proportions */
+      box-sizing: border-box; /* Include padding and borders within the width */
+      min-width: auto; /* Set a minimum width for the content */
+      margin: 0 auto; /* Center the container horizontally */
+    }
+
+
+    .email-solutions-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .email-solution-cards {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 0px 10px;
+    }
+    
+    .email-solution-card {
+      width: 50%;
+      padding: 40px 0px;
+      background-color: black;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative; /* Position content within the card */
+    }
+    
+    #cold-email-animation {
+      position: relative;
+      top: 0px;
+      left: 0px;
+      width: 50%;
+      height: 50%;
+      /* z-index: 1; */
+    }
+
+    #email-verification-animation {
+      position: relative;
+      top: 0px;
+      left: 0px;
+      width: 50%;
+      height: 50%;
+
+    }
+    
+    .email-solution-card h3 {
+      padding: 0px 10px;
+      font-size: 30px;
+      font-weight: 600;
+      margin-top: 20px;
+
+      @supports (-webkit-background-clip: text) {
+        background-image: linear-gradient(to right, #51e81a, #20e95c, #00e985, #00e8a6, #00e5bf, #0fe6bd, #19e7bb, #21e8b9, #4eec9b, #78ed78, #a1ec4f, #cbe817, #a1ec4f, #78ed78, #4eec9b, #21e8b9, #19e7bb, #0fe6bd, #00e5bf, #00e8a6, #00e985, #20e95c, #51e81a);
+        /* background-image: linear-gradient(to right, #0a56f7, #5851f9, #804bfa, #a041f9, #bd34f6, #db1fdf, #f005c9, #ff00b3, #ff008a, #ff0063, #ff0063, #ff008a, #ff00b3, #f005c9, #db1fdf, #bd34f6, #a041f9, #804bfa, #5851f9, #0a56f7); */
+        /* background-image: linear-gradient(to right, #0a56f7, #5851f9, #804bfa, #a041f9, #bd34f6, #db1fdf, #f005c9, #ff00b3, #ff008a, #ff0063, #f7003c, #e51212, #f7003c, #ff0063, #ff008a, #ff00b3, #f005c9, #db1fdf, #bd34f6, #a041f9, #804bfa, #5851f9, #0a56f7); */
+        -webkit-background-clip: text;
+        color: transparent;
+        background-size: 200% auto;
+        animation: shine 5s linear infinite;
+      }
+    }
+    
+    /* .email-solution-card a {
+      margin: 10px 0px;
+    } */
+    
+    .email-solution-card p {
+      padding: 30px 30px;
+      /* flex-grow: 1; */
+      font-size: 18px;
+      line-height: 1.5;
+      /* margin-top: 5px; */
+      letter-spacing: 1px;
+      
+    }
+    
+    .email-solution-card .cta-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #0071e3;
+      border: none;
+      border-radius: 30px;
+      font-size: 18px;
+      color: #fff;
+    }
+    
+    .email-solution-card .cta-button:hover {
+      background: #0c4da2;
+    }
+    
+    /* Additional styling for mobile devices */
+    @media (max-width: 768px) {
+      .email-solution-cards {
+        flex-direction: column;
+        gap: 0;
+        margin: 0; /* Remove horizontal margin for mobile */
+        width: 100%; /* Ensure the cards take up full container width */
+      }
+    
+      .email-solution-card {
+        width: 100%;
+        margin: 10px 0;
+        /* padding-top: 0; */
+      }
+    }
+    /* ##################################################################### */
+    
+    /* .email-solution-card img{
+      width: 200px;
+      margin: 0 auto;
+    } */
+    
+    /* .email-solution-card h3{
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 20px;}
+
+    .email-solution-card a {
+      margin: 10px 0;
+    }
+    
+    .email-solution-card p {
+      flex-grow: 1; 
+      font-size: 16px;
+      line-height: 1.5;
+      margin-top: 10px;
+      padding: 0px 50px;
+    }
+    .email-solution-card .cta-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #0071e3;
+      border: none;
+      border-radius: 30px;
+      font-size: 18px;
+      color: #fff;
+  }
+  .email-solution-card .cta-button:hover {
+    background: #0c4da2;
+  } */
+
+    /* ############################################### HOW IT WORKS ####################################################################### */
+    #how-it-works{
+      
+      margin: 10px;
+      background-image: linear-gradient(to top, #f8f8f8, #d8d8d8);
+      padding: 50px 20px;
+
+      
+    }
+
+    #how-it-works h3 {
+      padding: 0px 10px;
+      font-size: 30px;
+      font-weight: 600;
+      margin-top: 20px;
+
+      @supports (-webkit-background-clip: text) {
+       
+        /* background-image: linear-gradient(to right, #51e81a, #20e95c, #00e985, #00e8a6, #00e5bf, #0fe6bd, #19e7bb, #21e8b9, #4eec9b, #78ed78, #a1ec4f, #cbe817, #a1ec4f, #78ed78, #4eec9b, #21e8b9, #19e7bb, #0fe6bd, #00e5bf, #00e8a6, #00e985, #20e95c, #51e81a); */
+        background-image: linear-gradient(to right, #0a56f7, #5851f9, #804bfa, #a041f9, #bd34f6, #db1fdf, #f005c9, #ff00b3, #ff008a, #ff0063, #ff0063, #ff008a, #ff00b3, #f005c9, #db1fdf, #bd34f6, #a041f9, #804bfa, #5851f9, #0a56f7);
+        /* background-image: linear-gradient(to right, #0a56f7, #5851f9, #804bfa, #a041f9, #bd34f6, #db1fdf, #f005c9, #ff00b3, #ff008a, #ff0063, #f7003c, #e51212, #f7003c, #ff0063, #ff008a, #ff00b3, #f005c9, #db1fdf, #bd34f6, #a041f9, #804bfa, #5851f9, #0a56f7); */
+        -webkit-background-clip: text;
+        color: transparent;
+        background-size: 200% auto;
+        animation: shine 5s linear infinite;
+      }
+    }
+    
+    #how-email-automation, #how-email-verification {
+      display: inline-block;
+      max-width: 1600px;
+      margin: 20px 70px; /* Adjust the right and left margin as needed */
+      text-align: left; /* Set text alignment to left */
+    }
+    #how-email-automation a, #how-email-verification a{
+      margin: 20px 44px; /* Adjust the right and left margin as needed */
+
+    }
+
+/* ############################################### OUR SERVICES P ####################################################################### */
+
+    
+    @media only screen and (max-width: 600px) {
+      #web-development, #software-development {
+        display: block;
+        
+      }
+      
+    }
+    /* ################################################# HOW IT WORKS DEPRICATED ##################################################################### */
+
+    /* #how {
+    padding: 20px;
+    margin-top: 50px;
+    text-align: center;
+    } */
+ /* ################################################ TESTIMONIALS ###################################################################### */
+    #testimonials {
+    display: block;
+    margin: 20px;
+    padding: 20px;
+    margin-top: 50px;
+    background-image: linear-gradient(to top, #f8f8f8, #d8d8d8);
+
+    justify-content: center;
+    align-items: center;
+    }
+    
+    .testimonial {
+    display: inline-block;
+    width: 300px;
+    /* margin: 0 20px; */
+    text-align: center;
+    padding: 20px;
+    }
+    @media only screen and (max-width: 600px) {
+      .testimonial {
+      display: block;
+      width: auto;
+    }
+  }
+
+    .testimonial p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-top: 10px;
+    }
+    
+    .testimonial h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 20px;
+    }
+    
+    
+    
+/* ############################################# ABOUT US & CONTACT US ######################################################################### */
+
+
+
+
+/* #about-us p, #contact-us p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  } */
+
+  #about-us, #contact-us {
+    padding-top: 20px;
+    width: 500px;
+    margin: 0 auto;
+    text-align: center;
+    }
+    @media only screen and (max-width: 600px) {
+      #about-us, #contact-us {
+        padding: 20px 40px;
+        /* font-size: 40px; */
+        width: auto;
+        margin: 0px;
+        text-align: center;
+        }
+      }
+    
+    #about-us h2, #contact-us h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom:20px;
+    text-align: center;
+  }
+  
+  #about-us .cta-button, #contact-us .cta-button {
+  padding: 10px 20px;
+  background: #0071e3;
+  border: none;
+  border-radius: 30px;
+  font-size: 18px;
+  color: #fff;
+  }
+  
+  #about-us .cta-button:hover, #contact-us .cta-button:hover {
+  background: #0c4da2;
+  }
+  
+  #legal {
+  margin-top: 20px;
+  }
+  
+  #legal p {
+  font-size: 14px;
+  color: #6e6e73;
+  }
+  
+  nav ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  }
+  
+  nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  margin-right: 20px;
+  }
+  
+  nav ul li a:hover {
+  color: #0071e3;
+  }
+/* ################################### FOOTER ########################################################## */
+footer {
+    
+  background-color: #f8f8f8;
+  /* padding: 50px auto; */
+  text-align: center;
+  }
+  
+  
+
+/* ################################################################ Other Page CSS ######################################## */
+
+#generic-pages {
+  padding:1% 5%;
+}
+
+.card {
+  border: 1px solid #ccc; /* Add a border */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  padding: 10px; /* Add some padding inside the card */
+  max-width: 400px; /* Set a maximum width for responsiveness */
+  margin: auto; /* Center the card horizontally */
+  border-radius: 10px;
+}
+
+/* Style form elements (optional) */
+.card input,
+.card select,
+.p
+.card textarea {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 2px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  
+}

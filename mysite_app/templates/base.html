@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- SEO Optimized Meta Tags -->
+    <meta name="description" content="Automate your cold emails for job hunting and freelance projects with Free Cold Emails's Automation Tools." />
+    <meta name="keywords" content="Cold Email Automation, Job Hunting, Freelance Projects, Free Service" />
+    
+    <!-- Author Information -->
+    <meta name="author" content="Jeetujayson Raju" />
+    
+    <!-- Social Media Meta Tags -->
+    <meta property="og:title" content="Free Cold Emails Automation for Job Hunting and Freelance Projects" />
+    <meta property="og:description" content="Automate your cold emails for job hunting and freelance projects with Free Cold Emails's Automation Tools." />
+    <meta property="og:image" content="{% static 'images/logo2.png' %}" />
+    <meta property="og:url" content="https://www.freecoldemails.com" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.freecoldemails.com" />
+    
+    <!-- Title and Favicon -->
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.png' %}" />
+    
+    <!-- Stylesheet -->
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+
+    <!-- JS and Lotties -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.8/lottie.min.js"></script>
+    <!-- <script src="{% static 'js/app.js' %}"></script> -->
+
+
+     <!-- Font Family -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
+
+    <!-- For Social Media Icons -->
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+  </head>
+  
+  <body>
+    
+    <header>
+      <div id="header">
+        <a href="/">
+          <img id="logo" src="{% static 'images/logo2.png' %}" alt="Free Cold Emails Logo"></a>
+      
+      <div class="hamburger-menu">
+        <div class="hamburger-icon" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+       
+      <nav class="nav-menu">
+        <ul>
+          <li><a href="/#featured-email-solutions">Tools</a></li>
+          <!-- <li><a href="#services">Services</a></li> -->
+          <li><a href="blogs">Blogs</a></li>
+          <li><a href="{% url 'about_us' %}">About Us</a></li>
+          <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+          <li><a href="{% url 'login' %}">Login/Sign Up</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+    </header>
+
+    {% block content %}{% endblock %}
+
+    <footer>
+        
+        <div id="legal">
+          <p><a href="{% url 'privacy_policy' %}" class="cta-button">Privacy Policy</a> | <a href="{% url 'terms_of_service' %}" class="cta-button">Terms of Service</a> <br>Copyright © 2023 by www.freecoldemails.com. All rights reserved.</p>
+        </div>
+      </footer>
+  
+      <!-- <script src="{% static 'js/app.js' %}"></script> -->
+      <script>
+        function toggleMenu() {
+          document.querySelector(".nav-menu").classList.toggle("show");
+        }
+      </script>
+          <!-- Include the JavaScript file -->
+    <script src="{% static 'js/app.js' %}"></script>
