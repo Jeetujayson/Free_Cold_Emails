@@ -178,7 +178,7 @@ header {
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 5px;
+      /* padding: 5px; */
       background: #0071e3;
       }
       
@@ -338,7 +338,7 @@ header {
   #hero-section h1 {
   text-align: center; /* Center-align the content */
   padding: 0px 20px; /* Add padding to the left and right */
-  margin-top: 160px; 
+  margin-top: 180px; 
   font-size: 70px;
   font-weight: 600;
   margin-bottom: 20px;

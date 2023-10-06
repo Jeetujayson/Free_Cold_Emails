@@ -1,25 +1,31 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
 from authenticator_app.models import User
 
 # from django.contrib.auth import get_user_model 
 
+def validate_email_unique(value):
+    exists = User.objects.filter(email=value)
+    if exists:
+        raise ValidationError("Email address %s already exists, must be unique" % value)
+
 class RegistrationForm(UserCreationForm):
     first_name = forms.CharField(max_length=40, required=True)
     last_name  = forms.CharField(max_length=40, required=True)
-    email = forms.EmailField(max_length=254, required=True)
+    email = forms.EmailField(validators=[validate_email_unique], max_length=254, required=True)
 
 ##################### To Get Rid of the Instructions on Sign Up Page ######################################
-    password1 = forms.CharField(
-        label=("Password"),
-        strip=False,
-        widget=forms.PasswordInput,
-    )
-    password2 = forms.CharField(
-        label=("Password confirmation"),
-        widget=forms.PasswordInput,
-        strip=False,
-    )
+    # password1 = forms.CharField(
+    #     label=("Password"),
+    #     strip=False,
+    #     widget=forms.PasswordInput,
+    # )
+    # password2 = forms.CharField(
+    #     label=("Password confirmation"),
+    #     widget=forms.PasswordInput,
+    #     strip=False,
+    # )
 
 ###########################################################
     class Meta:

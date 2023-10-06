@@ -8,7 +8,7 @@ from authenticator_app.models import User
 # Create your views here.
 
 
-@ratelimit(key='user', rate='5/h', method='POST', block=True) #Rate Limit
+@ratelimit(key='user', rate='20/h', method='POST', block=True) #Rate Limit
 
 def signup(request):
     if request.method == 'POST':
