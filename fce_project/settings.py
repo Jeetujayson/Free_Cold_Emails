@@ -14,6 +14,9 @@ from pathlib import Path
 import os
 from decouple import config
 
+# from django.contrib.sites.models import Site
+# from django.urls import reverse_lazy
+
 # from authenticator_app.models import CustomUser
 
 
@@ -42,8 +45,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'django.contrib.sites',
     'mysite_app',
     'authenticator_app',
+    ##############################
+    # 'allauth',
+    # 'allauth.account',
+    ##############################
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.google', # Add this if you want social authentication
 ]
 
 MIDDLEWARE = [
@@ -138,3 +148,22 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'mysite_app', 'static')]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'authenticator_app.User'
+
+#############################################
+
+# AUTHENTICATION_BACKENDS = (
+#     'allauth.account.auth_backends.AuthenticationBackend',
+# )
+
+# AUTHENTICATION_CLASSES = (
+#     'allauth.account.auth_backends.AuthenticationBackend',
+# )
+
+# # Set email as the username field
+# ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
+# # Add these lines at the end of the file
+# LOGIN_URL = reverse_lazy('account_login')
+# LOGIN_REDIRECT_URL = '/authentication/login/'
+# LOGOUT_REDIRECT_URL = '/'
