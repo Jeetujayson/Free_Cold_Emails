@@ -14,11 +14,6 @@ from pathlib import Path
 import os
 from decouple import config
 
-# from django.contrib.sites.models import Site
-# from django.urls import reverse_lazy
-
-# from authenticator_app.models import CustomUser
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -33,7 +28,7 @@ SECRET_KEY = 'django-insecure-(cggagk%h&=##(ha^8&0$#iqx4b3ot!ud0nwo=6l*4ljtit7^m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.40.3']
+ALLOWED_HOSTS = ['127.0.0.1', '192.168.40.3']
 
 
 # Application definition
@@ -45,16 +40,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'django.contrib.sites',
+
+    'allauth', #Allauth Documentation Requirement
+    'allauth.account', #Allauth Documentation Requirement
+    'allauth.socialaccount',#Allauth Documentation Requirement
     'mysite_app',
-    'authenticator_app',
-    ##############################
-    # 'allauth',
-    # 'allauth.account',
-    ##############################
-    # 'allauth.socialaccount',
-    # 'allauth.socialaccount.providers.google', # Add this if you want social authentication
+    'dashboard_app',
+
+
+
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -64,14 +60,33 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    "allauth.account.middleware.AccountMiddleware", #Allauth Documentation Requirement
+    
 ]
+
+# Provider specific settings #Allauth Documentation Requirement
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': '123',
+            'secret': '456',
+            'key': ''
+        }
+    }
+}
 
 ROOT_URLCONF = 'fce_project.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'mysite_app', 'templates')],
+        # 'DIRS': [os.path.join(BASE_DIR, 'mysite_app', 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -101,6 +116,7 @@ DATABASES = {
         'PORT': config('DB_PORT', default='5432'),
     }
 }
+
 
 
 # Password validation
@@ -145,25 +161,93 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'mysite_app', 'static')]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
+
+
+
+#Allauth Documentation Requirement
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend", #Allauth Documentation Requirement
+    'allauth.account.auth_backends.AuthenticationBackend', #Allauth Documentation Requirement
+
+
+]
+
+SITE_ID = 1
+
+
+############### Custome Profile ###################################
+# LOGIN_REDIRECT_URL = 'db_view'  # This should match the name you specified in your URL pattern
+
+
+# ACCOUNT_PROFILE = 'dashboard_app.views.profile'
+ACCOUNT_PROFILE = 'dashboard_app.views'
+
+################### Experimental ###########################
+AUTH_USER_MODEL = 'mysite_app.User'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'authenticator_app.User'
+######################## Working #######################################
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 
-#############################################
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None # Very Important - Field Does Not Exist Error If Deleted
 
-# AUTHENTICATION_BACKENDS = (
-#     'allauth.account.auth_backends.AuthenticationBackend',
-# )
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# ACCOUNT_UNIQUE_EMAIL = True    # Optional I think. Only needed if username is active
 
-# AUTHENTICATION_CLASSES = (
-#     'allauth.account.auth_backends.AuthenticationBackend',
-# )
 
-# # Set email as the username field
-# ACCOUNT_AUTHENTICATION_METHOD = 'email'
-# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587  # Use 587 for TLS or 465 for SSL
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False  # Set to True for SSL
+EMAIL_HOST_USER = config('DB_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = config('DB_HOST_USER')
 
-# # Add these lines at the end of the file
-# LOGIN_URL = reverse_lazy('account_login')
-# LOGIN_REDIRECT_URL = '/authentication/login/'
-# LOGOUT_REDIRECT_URL = '/'
+###########################################################################
+
+ACCOUNT_FORMS = {
+    'signup': 'mysite_app.forms.CustomSignupForm',
+}
+
+########################## TODAY #########################################
+ACCOUNT_RATE_LIMITS = {
+    # Change password view (for users already logged in)
+    "change_password": "5/m",
+    # Email management (e.g. add, remove, change primary)
+    "manage_email": "10/m",
+    # Request a password reset, global rate limit per IP
+    "reset_password": "1/m",
+    # Rate limit measured per individual email address
+    "reset_password_email": "1/m",
+    # Password reset (the view the password reset email links to).
+    "reset_password_from_key": "20/m",
+    # Signups.
+    "signup": "20/m",
+    # NOTE: Login is already protected via `ACCOUNT_LOGIN_ATTEMPTS_LIMIT`
+}
+
+
+
+# Set the maximum number of login attempts
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 3
+
+# Set the maximum number of signup attempts
+ACCOUNT_SIGNUP_ATTEMPTS_LIMIT = 3
+
+
+# Set the expiration period for email confirmation links (in days)
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
+
+# Set the duration of lockout for login attempts (in seconds)
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300  # 5 minutes
+
+# Set the expiration period for email confirmation links (in days)
+ACCOUNT_EMAIL_VERIFICATION_EXPIRE_DAYS = 3
+
+# # Automatically log in the user after email confirmation
+# ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True

@@ -7,7 +7,7 @@ a, button {
   text-decoration: none;
 }
 
-.global-button {
+button { 
   padding: 10px 20px;
   background: #0071e3;
   border: none;
@@ -16,10 +16,14 @@ a, button {
   color: #fff;
   margin: 5px;
   }
-  
-.global-button:hover {
+
+button:hover {
   background: #0c4da2;
   }
+  
+
+
+/* ############################################################################################################################ */
 /*
  * Global Body Styles
  * 
@@ -164,7 +168,6 @@ body {
   } */
 
   /* ########################################## HEADER WITH NAVIGATION MENU ############################################################################ */
-
 header {
   position: relative;
   top: 0;
@@ -181,16 +184,24 @@ header {
       /* padding: 5px; */
       background: #0071e3;
       }
-      
-      header nav ul li {
-      margin: auto;
-      }
-      
+
+      header nav ul {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        }
+        
       header nav ul li a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 18px;
-      }
+        color: #fff;
+        text-decoration: none;
+        font-size: 18px;
+        margin: 0px 10px;
+        }
+        
+
       
       header nav ul li a:hover {
       color: #FFA500;
@@ -218,6 +229,87 @@ header {
       font-size: 24px;
       cursor: pointer;
       }
+            /* nav ul li a:hover {
+      color: #0071e3;
+      } */
+  
+    /* header nav ul li {
+    margin: auto;
+    } */
+    
+    /* header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    } */
+    /* Apply rounded border to the dropdown box */
+
+    /*  ######################### DROP DOWN MENU FOR TOOLS MENU ####################################### */
+/* Add this CSS for debugging purposes to keep the dropdown visible */
+/* 
+#toolsDropdown {
+  display: block !important;  Keep the dropdown always visible  
+  position: absolute !important;   Prevent the dropdown from collapsing  
+}*/
+
+/* ######################################## */
+
+    
+  li.dropdown ul.dropdown {
+    display: none;
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    /* left: 40%;  */
+    transform: translateX(-50%); 
+    text-align: center; 
+    transition: display 0.3s ease;
+    box-shadow: -5px 5px 10px gray;
+
+  }
+  li.dropdown_li {
+    padding: 5px;
+    text-align: center;
+  }
+  
+  li.dropdown ul.dropdown li a {
+    color: rgb(3, 3, 3);
+  }
+
+  /* Make the color change on hover more specific */
+  li.dropdown ul.dropdown li a:hover {
+    color: #FFA500; 
+  }
+
+
+  li.dropdown:hover ul.dropdown {
+    display: block;
+  }
+
+
+  @media only screen and (max-width: 600px) {
+
+
+    li.dropdown ul.dropdown {
+      background-color: transparent;
+      position: relative; /* Change position to relative */
+      left: auto;
+      transform: none;
+      text-align: left;
+      transition: none;
+      box-shadow: none;
+    }
+    li.dropdown ul.dropdown li a {
+      color: #fff;
+    }
+  
+    /* Make the color change on hover more specific */
+    /* li.dropdown ul.dropdown li a:hover {
+      color: #1ab015; 
+    } */
+    
+  }
+    
   /* ######################################  HAMBURGER MENU ################################################################################ */
   
   
@@ -242,8 +334,7 @@ header {
     margin: 5px;
     
   }
-  
-  
+   
   @media only screen and (max-width: 600px) {
     .nav-menu {
       display: none;
@@ -254,35 +345,42 @@ header {
       width:100%;
       text-align: center;
       
-      
     }
     .nav-menu ul a {
       display: block;
       width:100%;
       text-align: center;
       padding-top: 50px;
-      
-  
+
     }
-  
-    
+
     .nav-menu.show {
       display: block;
   
-      height: 600px;
+      height: 700px;
       /* background: linear-gradient( #333333 40%, #8b1c1c); */
       background: linear-gradient( #333333 40%, #e300d0);
     }
-    
-    
-   
   
     .hamburger-icon {
       display: block;
     }
+
+    /* .dropdown ul {
+      display: none;
+      position: relative;
+      color: rgb(231, 26, 26);
+    } */
+  
+    /* .dropdown:hover ul {
+      display: block;
+    } */
+  
+
+    /* ####################################################################################################################################################### */
     
   }
-
+  
 /* ################################################# HERO ##################################################################### */
 #hero-section {
   /* background-image: linear-gradient(to top, #fff, #b9b9b9);  */
@@ -419,7 +517,16 @@ header {
 
  h2{
 
-  font-size: 60px;
+  font-size: 50px;
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: 0em;
+
+}
+
+h3{
+
+  font-size: 30px;
   line-height: 1.1;
   font-weight: 600;
   letter-spacing: 0em;
@@ -785,25 +892,7 @@ header {
   color: #6e6e73;
   }
   
-  nav ul {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  }
-  
-  nav ul li a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 18px;
-  margin-right: 20px;
-  }
-  
-  nav ul li a:hover {
-  color: #0071e3;
-  }
+
 /* ################################### FOOTER ########################################################## */
 footer {
     
@@ -817,10 +906,11 @@ footer {
 /* ################################################################ Other Page CSS ######################################## */
 
 #generic-pages {
-  padding:1% 5%;
+  padding:0% 5%;
 }
 
 .card {
+  /* display: block; */
   border: 1px solid #ccc; /* Add a border */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
   padding: 10px; /* Add some padding inside the card */
@@ -830,14 +920,64 @@ footer {
 }
 
 /* Style form elements (optional) */
-.card input,
+.card input {
+  
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 2px;
+  border: 1px solid #ddd;
+}
 .card select,
-.p
+.p,
 .card textarea {
   width: 90%;
   padding: 10px;
   margin-bottom: 2px;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  /* border-radius: 4px; */
   
 }
+
+
+.generic { /* Use class="generic" in <p> tag to give this padding/styles */
+  padding: 0px 15px;
+}
+
+.errorlist {
+  color: red;
+}
+
+/* ################################# Don't DELETE  IN USE for password reset page because it doesn't have a button. it has input link (made redundant by "button") ##############################################*/
+/* Use class="global-button" to use this style */
+.global-button { 
+
+  padding: 10px 20px;
+  background: #0071e3;
+  border: none;
+  border-radius: 30px;
+  font-size: 18px;
+  color: #fff;
+  margin: 5px;
+  }
+  
+/* Use id ="global-button" to use this style */
+.global-button:hover {
+  background: #0c4da2;
+  }
+  #global-button {
+    width: auto;
+    padding: 10px 20px;
+    background: #0071e3;
+    border: none;
+    border-radius: 30px;
+    font-size: 18px;
+    color: #fff;
+    margin: 5px;
+  }
+
+  /* #################### DROP DOWN ########################### */
+
+
+/* ################################# */
+
+

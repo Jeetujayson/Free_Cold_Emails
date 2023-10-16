@@ -45,8 +45,9 @@
   </head>
   
   <body>
-    
+
     <header>
+      {% block body %}
       <div id="header">
         <a href="/">
           <img id="logo" src="{% static 'images/logo2.png' %}" alt="Free Cold Emails Logo"></a>
@@ -57,15 +58,28 @@
           <span></span>
           <span></span>
         </div>
-       
+        {% endblock body %}
       <nav class="nav-menu">
         <ul>
-          <li><a href="/#featured-email-solutions">Tools</a></li>
-          <!-- <li><a href="#services">Services</a></li> -->
+          <!-- <li><a href="#featured-email-solutions">Tools</a></li> -->
+
+          <li class="dropdown">
+            <a href="javascript:void(0);" class="dropbtn" id="toolsToggle">Tools</a>
+            <ul class="dropdown" id="toolsDropdown">
+              <li class="dropdown_li" ><a href="/accounts/profile/">Email Automation</a></li>
+              <li class="dropdown_li"><a href="/accounts/profile/">Email Verification</a></li>
+            </ul>
+          </li>
+
           <li><a href="blogs">Blogs</a></li>
           <li><a href="{% url 'about_us' %}">About Us</a></li>
           <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
-          <li><a href="{% url 'login' %}">Login/Sign Up</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'account_logout' %}">Logout</a></li>
+      {% else %}
+          <li><a href="{% url 'account_login' %}">Login/Sign Up</a></li>
+      {% endif %}
+      
         </ul>
       </nav>
     </div>

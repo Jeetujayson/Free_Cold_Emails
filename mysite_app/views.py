@@ -1,12 +1,24 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from allauth.account.views import SignupView
+from .forms import CustomSignupForm
 
 # Create your views here.
+
+class CustomSignupView(SignupView):
+    form_class = CustomSignupForm
+    
+    ## added to make user inactive by default
+    # def form_valid(self, form):
+    #     # Call the parent form_valid method to save the user
+    #     response = super().form_valid(form)
+    #     # Check if the user has verified their email
+    #     if self.user.emailaddress_set.filter(verified=True).exists():
+    #         self.user.is_active = True
+    #         self.user.save()
+    #     return response
+
 def index(request):
     return render(request, "index.html")
-
-def login(request):
-    # Your login view logic here, if needed
-    return render(request, 'authenticator_app/login.html')
 
 def about_us(request):
     return render(request, 'about_us.html')
