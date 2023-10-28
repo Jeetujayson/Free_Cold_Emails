@@ -32,3 +32,5 @@ def privacy_policy(request):
 def terms_of_service(request):
     return render(request, 'terms_of_service.html')
 
+def email_verification(request):
+    return render(request, 'buy_me_caffeine.html')

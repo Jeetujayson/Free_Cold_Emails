@@ -1,0 +1,16 @@
+{% extends "dashboard_base.html" %}
+{% load static %}
+{% block title %} Load Leads {% endblock %}
+
+{% block content %}
+
+<h3>Load Your Leads Here</h3>
+
+<form method="post" enctype="multipart/form-data" action="{% url 'leads' %}">
+    {% csrf_token %}
+    <label for="tsv_file" class="global-button">Choose File</label>
+    <input type="file" name="tsv_file" id="tsv_file" accept=".tsv, .csv">
+    <button type="submit">Upload</button>
+</form>
+
+{% endblock %}

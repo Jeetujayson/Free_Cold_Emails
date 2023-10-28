@@ -32,7 +32,7 @@
 
             <h3>Free Email Verification (Coming Soon)</h3>
             <p>Supercharge Your Emails! Try Our Free Email Checker for Reliable Results. No More Bounces – Just Happy Inboxes! Get Started Now!</p>
-            <a href="/accounts/profile/" class="cta-button">Try It Out</a>
+            <a href="/email_verification" class="cta-button">Try It Out</a>
           </div>
         </div>
       </div>
@@ -62,7 +62,7 @@
             <li>Download Verified Emails</li>
             <li>Start Cold Emailing</li>
         </ul>
-          <a href="accounts/profile/" class="cta-button">Get Started</a>
+          <a href="/email_verification" class="cta-button">Get Started</a>
         </div>
       </section>
 
@@ -97,7 +97,10 @@
     {% endblock %}
 
     
-
+    {% block js_block %}
+          <!-- Include the JavaScript file -->
+          <script src="{% static 'js/app.js' %}"></script>
+    {% endblock %}
 
 
 </body>

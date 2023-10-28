@@ -1,4 +1,4 @@
-{% extends 'base.html' %} <!-- Experiment -->
+{% extends "dashboard_base.html" %} <!-- Experiment -->
 
 {% load i18n %}
 
@@ -11,7 +11,7 @@
 
 <form action="{% url 'account_email' %}" class="email_list" method="post">
 {% csrf_token %}
-<fieldset class="blockLabels">
+<!-- <fieldset class="blockLabels"> -->
 
   {% for emailaddress in emailaddresses %}
 <div class="ctrlHolder">
@@ -36,7 +36,7 @@
       <button class="primaryAction" type="submit" name="action_remove" >{% trans 'Remove' %}</button>
 </div>
 
-</fieldset>
+<!-- </fieldset> -->
 </form>
 
 {% else %}
@@ -45,12 +45,13 @@
 
   {% if can_add_email %}
     <h3>{% trans "Add Email Address" %}</h3>
-
+    <div class="card"> <!-- Experiment -->
     <form method="post" action="{% url 'account_email' %}" class="add_email">
         {% csrf_token %}
         {{ form.as_p }}
         <button name="action_add" type="submit">{% trans "Add Email" %}</button>
     </form>
+  </div><!-- Experiment -->
   {% endif %}
 
 {% endblock content %}

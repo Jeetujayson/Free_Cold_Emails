@@ -1,7 +1,30 @@
-{% extends "account/base.html" %}
+{% extends "dashboard_base.html" %}
+{% block title %} Profile {% endblock %}
+{% block extra_body %}
 
+{% endblock extra_body %}
+{% block content %}
+<h1>Profile </h1>
 
-{% block body %}
+<div class="card"> <!-- Experiment -->
+<p><b> Email:</b><br> {{ user.email }}</p>
+<a href="{% url 'account_email' %}">Change Email</a>
 
-{% endblock body %}
-<h1>Profile</h1>
+<p><b>First Name:</b><br> {{ user.first_name }}</p>
+<p><b>Last Name:</b><br> {{ user.last_name }}</p>
+<p><b>Account Creation Date:</b><br> {{ user.date_joined|date:"F d, Y" }}</p>
+<p><b>Last Login Date:</b><br> {{ user.last_login|date:"F d, Y H:i:s" }}</p>
+
+<p><b>Email Verification Status:</b><br>
+    {% if email_verification and email_verification.verified %}
+        Verified
+    {% else %}
+        Not Verified
+    {% endif %}
+</p>
+<p><b>Max Sender Emails You Can Link:</b><br> {{ smtp_limit }}</p>
+<p><b>Max Emails You Can Send/Month:</b><br> {{ sending_limit }}</p>
+
+</div><!-- Experiment -->
+
+{% endblock %}

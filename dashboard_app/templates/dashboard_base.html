@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block body %} <!--  To Delete the Headder Logo -->
+<header>
+      
+    <div id="header">
+      <a href="/">
+        <img id="logo_d" src="{% static 'images/White Transparent Icon.png' %}" alt="Free Cold Emails Logo"></a>
+    
+    <div class="hamburger-menu">
+      <div class="hamburger-icon" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      
+    <nav class="nav-menu">
+      <ul>
+        <!-- <li><a href="#featured-email-solutions">Tools</a></li> -->
+
+
+        {% if user.is_authenticated %}
+        <li><a class="active" href="{% url 'dashboard' %}">Dashboard</a></li>
+        <li><a href="{% url 'profile' %}">Profile</a></li>
+        
+        <li class="dropdown">
+          <a href="javascript:void(0);" class="dropbtn" id="toolsToggle">Tools</a>
+          <ul class="dropdown" id="toolsDropdown">
+            <li class="dropdown_li" ><a href="/accounts/dashboard/">Email Automation</a></li>
+            <li class="dropdown_li"><a href="/email_verification">Email Verification (Coming Soon)</a></li>
+          </ul>
+        </li>
+
+        <!-- <li><a href="blogs">Blogs</a></li> -->
+        
+        <li><a class="active" href="{% url 'contact_us' %}">Contact Us</a></li>
+        <li><a href="{% url 'account_logout' %}">Logout</a></li>
+    {% else %}
+        <li class="dropdown">
+          <a href="javascript:void(0);" class="dropbtn" id="toolsToggle">Tools</a>
+          <ul class="dropdown" id="toolsDropdown">
+            <li class="dropdown_li" ><a href="/accounts/profile/">Email Automation</a></li>
+            <li class="dropdown_li"><a href="/email_verification">Email Verification (Coming Soon)</a></li>
+          </ul>
+        </li>
+
+        <li><a href="blogs">Blogs</a></li>
+        <li><a href="{% url 'about_us' %}">About Us</a></li>
+        <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+        <li><a href="{% url 'account_login' %}">Login/Sign Up</a></li>
+    {% endif %}
+    
+      </ul>
+    </nav>
+  </div>
+</div>
+
+{% block extra_body %}
+<h1>Dashboard </h1>
+<nav class ="dashboard-nav-menu">
+  <ul>
+
+    <li><a {% if request.path == '/accounts/dashboard/' %}class="active"{% endif %} href="{% url 'dashboard' %}">Your Emails</a></li>
+    <li><a {% if request.path == '/accounts/dashboard/leads/' %}class="active"{% endif %} href="{% url 'leads' %}">Load Leads</a></li>    
+    <li><a {% if request.path == '/accounts/dashboard/message_draft/' %}class="active"{% endif %} href="{% url 'message_draft' %}">Message Draft</a></li>
+    <li><a {% if request.path == '/accounts/dashboard/schedule/' %}class="active"{% endif %} href="{% url 'schedule' %}">Schedule</a></li>
+
+  </ul>
+</nav>
+</div>
+</div>
+{% endblock extra_body %}
+
+  </header>
+{% endblock body %} <!--  To Delete the Headder Logo -->
+
+
+
+
+
+{% block content %}
+{% endblock %}
+

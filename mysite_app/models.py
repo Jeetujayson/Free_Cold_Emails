@@ -48,7 +48,16 @@ class User(AbstractUser):
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
 
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
     objects = UserManager()
+
+class AccountLimit(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    smtp_limit = models.PositiveIntegerField(default=1)
+    sending_limit = models.PositiveIntegerField(default=5)
+
+    def __str__(self):
+        return self.user.email

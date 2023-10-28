@@ -153,9 +153,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 # Additional directories to search for static files
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'mysite_app', 'static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'mysite_app', 'static'), 
+                    os.path.join(BASE_DIR, 'dashboard_app', 'static')
+]
 
 
 # Default primary key field type
@@ -196,6 +198,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
 ACCOUNT_SESSION_REMEMBER = True
+# SESSION_COOKIE_AGE: 1209600 # seconds (2 weeks)
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 # ACCOUNT_UNIQUE_EMAIL = True    # Optional I think. Only needed if username is active
 
@@ -251,3 +254,5 @@ ACCOUNT_EMAIL_VERIFICATION_EXPIRE_DAYS = 3
 
 # # Automatically log in the user after email confirmation
 # ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+
+

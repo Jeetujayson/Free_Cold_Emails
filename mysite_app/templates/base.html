@@ -45,9 +45,9 @@
   </head>
   
   <body>
-
+    {% block body %} <!-- Block for Headder Logo -->
     <header>
-      {% block body %}
+      
       <div id="header">
         <a href="/">
           <img id="logo" src="{% static 'images/logo2.png' %}" alt="Free Cold Emails Logo"></a>
@@ -58,34 +58,51 @@
           <span></span>
           <span></span>
         </div>
-        {% endblock body %}
+
+        
       <nav class="nav-menu">
         <ul>
-          <!-- <li><a href="#featured-email-solutions">Tools</a></li> -->
 
-          <li class="dropdown">
-            <a href="javascript:void(0);" class="dropbtn" id="toolsToggle">Tools</a>
-            <ul class="dropdown" id="toolsDropdown">
-              <li class="dropdown_li" ><a href="/accounts/profile/">Email Automation</a></li>
-              <li class="dropdown_li"><a href="/accounts/profile/">Email Verification</a></li>
-            </ul>
-          </li>
+        {% if user.is_authenticated %}
+                    <!-- <li><a href="#featured-email-solutions">Tools</a></li> -->
+                    <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                    <li><a href="{% url 'profile' %}">Profile</a></li>
+                    
+                    <li class="dropdown">
+                      <a href="javascript:void(0);" class="dropbtn" id="toolsToggle">Tools</a>
+                      <ul class="dropdown" id="toolsDropdown">
+                        <li class="dropdown_li" ><a href="/accounts/profile/">Email Automation</a></li>
+                        <li class="dropdown_li"><a href="/email_verification">Email Verification (Coming Soon)</a></li>
+                      </ul>
+                    </li>
+          
+                    <!-- <li><a href="blogs">Blogs</a></li> -->
+                    <li><a href="{% url 'about_us' %}">About Us</a></li>
+                    <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+                    <li><a href="{% url 'account_logout' %}">Logout</a></li>
+          
+        {% else %}
+            <li class="dropdown">
+              <a href="javascript:void(0);" class="dropbtn" id="toolsToggle">Tools</a>
+              <ul class="dropdown" id="toolsDropdown">
+                <li class="dropdown_li" ><a href="/accounts/profile/">Email Automation</a></li>
+                <li class="dropdown_li"><a href="/email_verification">Email Verification (Coming Soon)</a></li>
+              </ul>
+            </li>
 
-          <li><a href="blogs">Blogs</a></li>
-          <li><a href="{% url 'about_us' %}">About Us</a></li>
-          <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
-          {% if user.is_authenticated %}
-          <li><a href="{% url 'account_logout' %}">Logout</a></li>
-      {% else %}
-          <li><a href="{% url 'account_login' %}">Login/Sign Up</a></li>
-      {% endif %}
+            <li><a href="blogs">Blogs</a></li>
+            <li><a href="{% url 'about_us' %}">About Us</a></li>
+            <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+            <li><a href="{% url 'account_login' %}">Login/Sign Up</a></li>
+        {% endif %}
       
         </ul>
       </nav>
     </div>
   </div>
     </header>
-
+    {% endblock body %} <!-- Block for Headder Logo -->
+    
     {% block content %}{% endblock %}
 
     <footer>
@@ -95,11 +112,16 @@
         </div>
       </footer>
   
-      <!-- <script src="{% static 'js/app.js' %}"></script> -->
+
       <script>
         function toggleMenu() {
           document.querySelector(".nav-menu").classList.toggle("show");
         }
+        
       </script>
-          <!-- Include the JavaScript file -->
-    <script src="{% static 'js/app.js' %}"></script>
+      
+    {% block js_block %}
+
+    {% endblock %}
+  </body>
+</html>

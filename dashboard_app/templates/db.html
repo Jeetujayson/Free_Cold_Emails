@@ -1,1 +1,95 @@
-<h1>DB</h1>
+{% extends "dashboard_base.html" %}
+{% load static %}
+
+{% block title %} Dashboard {% endblock %}
+
+{% block content %}
+<!-- {% if show_overlay %}
+    <div id="overlay">
+        <p>Please Wait...</p>
+    </div>
+{% endif %} -->
+
+<h3>Link Your Sender Emails Here</h3>
+
+<!-- <section class="card"> -->
+<!-- Form for linking sender emails -->
+<form action="{% url 'dashboard' %}" method="post">
+
+    {% csrf_token %}
+    <label for="id_email">Sender Email:</label>
+
+    <input class="input-box-border" type="email" id="id_email" name="email" required>
+
+    {% if form.email.errors %}
+    <div class="errorlist">
+    {{ form.email.errors }}
+    </div>
+    {% endif %}
+    <!-- {% if form.email.errors.as_text %} {{ form.email.errors }} {% endif %} -->
+  
+
+    <label for="id_smtp_server">SMTP Server:</label>
+    <input class="input-box-border" type="text" id="id_smtp_server" name="smtp_server" required>
+    {% if form.smtp_server.errors %}
+    <p class="errorlist">{{ form.smtp_server.errors }}</p>
+    {% endif %}
+
+
+    <label for="id_port">Port:</label>
+    <input class="input-box-border" type="number" id="id_port" name="port" required>
+    
+    <label for="id_app_password">App Password:</label>
+    <input class="input-box-border" type="password" id="id_app_password" name="app_password" required>
+    <button type="submit">Link Email</button>
+    {% if error_message %}
+    <div class="errorlist">
+       {{ error_message }} 
+    </div>
+    {% endif %}
+    
+</form>
+<!-- </section> -->
+<!-- Display linked data from the database -->
+
+<div id="overlay">
+    <p>Please Wait...<br>Reincarnation Is Superstition</p>
+   
+</div>
+<!-- Rest of your HTML content -->
+
+<h4>Linked Sender Emails:</h4>
+
+<table class = "card" id = "emails-table" >
+    <tr>
+        <th>Email</th>
+        <th style="min-width : 200px;">SMTP Server</th>
+        <th style="min-width : 100px;">Port</th>
+        <th>Action</th> 
+    </tr>
+    {% for email_data in linked_emails %}
+        <tr>
+            <td ><strong>{{ email_data.email }}</strong></td>
+            <td>{{ email_data.smtp_server }}</td>
+            <td>{{ email_data.port }}</td>
+            <td>
+                <form method="post" action="{% url 'dashboard' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="delete_smtp" value="{{ email_data.id }}">
+                    <button type="submit">Delete</button>
+                </form>
+        </td>
+        </tr>
+    {% endfor %}
+</table> 
+
+
+{% endblock %}
+
+{% block js_block %}
+<!-- Include the JavaScript file -->
+
+<script src="{% static 'js/db_app.js' %}"></script>
+
+{% endblock %}
+
