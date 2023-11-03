@@ -17,7 +17,7 @@
             </p>
             <form method="post" action="{% url 'account_email' %}">
                 {% csrf_token %}
-                <input class="global-button" type="hidden" name="email" value="{{ new_emailaddress.email }}">
+                <input class="cta-button" type="hidden" name="email" value="{{ new_emailaddress.email }}">
                 <button type="submit" name="action_send">{% trans 'Re-send Verification' %}</button>
             </form>
         {% endif %}

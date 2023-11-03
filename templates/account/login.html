@@ -38,6 +38,17 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
 {% endif %}
 
+{% if messages %}
+    {% for message in messages %}
+    {% if "You have signed out" in message.message %}
+        <div class="errorlist">
+            {{ message }}
+        </div>
+    {% endif %}
+{% endfor %}
+{% endif %}
+
+
 <div class="card"> <!-- Experiment -->
 <form class="login" method="POST" action="{% url 'account_login' %}">
   {% csrf_token %}

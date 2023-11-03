@@ -1,7 +1,3 @@
-/* # page-container {
-
-} */
-
 /* Removes underline from text in HTML elements tagged as <a> (links) and <button> (buttons) by setting text-decoration to none. */
 a, button {
   text-decoration: none;
@@ -24,17 +20,7 @@ button:hover {
 
 
 /* ############################################################################################################################ */
-/*
- * Global Body Styles
- * 
- * - Removes default margin and padding for a clean slate.
- * - Centers text within the body.
- * - Sets the default font size, line height, and weight.
- * - Specifies the font family stack.
- * - Sets the background color to white.
- * - Sets the default text color to near-black.
- * - Normalizes the font style.
- */
+
 body {
     
     margin: 0;
@@ -54,13 +40,6 @@ body {
 
 
 
-/*
- * Logo Styling
- * 
- * - Adds 15px of padding to the top to separate it from other elements.
- * - Sets the logo width to 200px.
- * - Centers the logo horizontally using auto margins for left and right.
- */
   #logo {
     padding-top: 15px;
     width: 200px;
@@ -76,17 +55,7 @@ body {
     margin-right: auto;
 
   }
-/*
- * Header Styling
- * 
- * - Sets a semi-transparent black background using RGBA.
- * - Applies a backdrop filter for blur and saturation effects.
- * - Sets a high z-index to keep the header above other elements.
- * - Uses block display to take up the full width.
- * - Removes any margins and sets width to auto for flexibility.
- * - Ensures a minimum width of auto to adapt to content.
- * - Sets the font size to 17px.
- */
+
   #header {
     background: rgba(0, 0, 0, 0.8);
     /* -webkit-backdrop-filter: saturate(180%) blur(20px); */
@@ -101,17 +70,7 @@ body {
   
   }
 /* ######################################## Heading Styling There is no Heading styling anymore I guess ####################################################### */
-/*
- * 
- * 
- * - Adds a top margin of 130px to position the heading.
- * - Sets the top padding to 0px.
- * - Sets the font size to 25px for prominence.
- * - Adjusts the line height to 1.07143 for better readability.
- * - Sets the font weight to 600 for a semi-bold appearance.
- * - Applies a slight negative letter-spacing for text optimization.
- * - Specifies the font family stack for consistent typography.
- */
+
   #heading {
     margin-top: 130px;
     padding-top: 0px;
@@ -119,37 +78,10 @@ body {
     line-height: 1.07143;
     font-weight: 600;
     letter-spacing: -.005em;
-    /* Already Mentioned in Body */
 
-    /* font-family: 'Roboto', 'FontAwesome', 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;   */
   }
 
-  /* ############################# BOOK A CALL BUTTON NOT IN USE ################################################################### */
-/*
- * .book-a-call Styling
- * 
- * - Sets the cursor to pointer for better UX.
- * - Adds padding for button-like appearance.
- * - Sets background color to blue.
- * - Removes any borders.
- * - Rounds the corners with a 30px radius.
- * - Sets the font size to 20px.
- * - Sets the text color to white.
- */
 
-  .book-a-call{
-    cursor: pointer;
-    padding: 10px 20px;
-    background: #06c;
-    border: none;
-    border-radius: 30px;
-    font-size:20px;
-    color: #fff;  
-  } 
-
- .book-a-call:hover{
-    background: #0071e3;
-  }
 /* ################################################################################################3 */
 /*
  * .underline Styling
@@ -162,17 +94,6 @@ body {
     text-shadow: 1px 1px 2px  black;
   }
 
-
-/* ############################################ SUBHEADING but i am not sure whether I even have a subheading or not ########################################################################## */
-
-/*
- * #subheading Styling
- * 
- * - Adds a top margin of 40px to position the subheading.
- */
-  /* #subheading{
-    margin-top: 40px;
-  } */
 /* ######################################## Dashboard Nav Menu #############################################*/
 .dashboard-nav-menu {
       
@@ -278,19 +199,6 @@ header {
       color: #0c4da2;
       font-weight: bold;
       }
-
-      
-      
-      /* header nav .logo {
-      font-size: 24px;
-      font-weight: 600;
-      color: #fff;
-      text-decoration: none;
-      }
-      
-      header nav .logo:hover {
-      color: #0c4da2;
-      } */
       
       header nav .menu-toggle {
       display: none;
@@ -298,22 +206,11 @@ header {
       font-size: 24px;
       cursor: pointer;
       }
-            /* nav ul li a:hover {
-      color: #0071e3;
-      } */
-  
-    /* header nav ul li {
-    margin: auto;
-    } */
-    
-    /* header nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 18px;
-    } */
-    /* Apply rounded border to the dropdown box */
 
-    /*  ######################### DROP DOWN MENU FOR TOOLS MENU ####################################### */
+  
+
+
+/*  ######################### DROP DOWN MENU FOR TOOLS MENU ####################################### */
 /* Add this CSS for debugging purposes to keep the dropdown visible */
 /* 
 #toolsDropdown {
@@ -548,20 +445,7 @@ header {
   
   }
   
-  #hero-section .cta-button {
-  padding: 10px 20px;
-  background: #0071e3;
-  border: none;
-  border-radius: 30px;
-  font-size: 18px;
-  color: #fff;
-  /* z-index: 1; */
-  
-  }
-  
-  #hero-section .cta-button:hover {
-  background: #0c4da2;
-  }
+
   
     /* ############################################ H1 H2 STYLING ########################################################################## */
 /*
@@ -744,7 +628,7 @@ h3{
       
     }
     
-    .email-solution-card .cta-button {
+    /* .email-solution-card .cta-button {
       margin-top: 20px;
       padding: 10px 20px;
       background: #0071e3;
@@ -752,11 +636,11 @@ h3{
       border-radius: 30px;
       font-size: 18px;
       color: #fff;
-    }
+    } */
     
-    .email-solution-card .cta-button:hover {
+    /* .email-solution-card .cta-button:hover {
       background: #0c4da2;
-    }
+    } */
     
     /* Additional styling for mobile devices */
     @media (max-width: 768px) {
@@ -840,13 +724,20 @@ h3{
     #how-email-automation, #how-email-verification {
       display: inline-block;
       max-width: 1600px;
-      margin: 20px 70px; /* Adjust the right and left margin as needed */
-      text-align: left; /* Set text alignment to left */
-    }
-    #how-email-automation a, #how-email-verification a{
-      margin: 20px 44px; /* Adjust the right and left margin as needed */
+      margin: 20px 50px; 
 
     }
+    #how-email-automation ul, #how-email-verification ul {
+      display: inline-block;
+      /* max-width: 1600px; */
+      /* margin: 20px 50px;  */
+      text-align: left; 
+    }
+
+    /* #how-email-automation a, #how-email-verification a{
+      margin: 20px 44px; 
+
+    } */
 
 /* ############################################### OUR SERVICES P ####################################################################### */
 
@@ -939,7 +830,7 @@ h3{
     text-align: center;
   }
   
-  #about-us .cta-button, #contact-us .cta-button {
+  /* #about-us .cta-button, #contact-us .cta-button {
   padding: 10px 20px;
   background: #0071e3;
   border: none;
@@ -950,7 +841,7 @@ h3{
   
   #about-us .cta-button:hover, #contact-us .cta-button:hover {
   background: #0c4da2;
-  }
+  } */
   
   #legal {
   margin-top: 20px;
@@ -1018,7 +909,13 @@ footer {
   color: red;
   margin: auto; /* Center the card horizontally */
 }
-
+.success {
+  
+  padding: 0px 10px;
+  max-width: 650px;
+  color: rgb(22, 197, 9);
+  margin: auto; /* Center the card horizontally */
+}
 /* ################################# Don't DELETE  IN USE for password reset page because it doesn't have a button. it has input link (made redundant by "button") ##############################################*/
 /* Use class="global-button" to use this style */
 .global-button { 
@@ -1046,11 +943,43 @@ footer {
     color: #fff;
     margin: 5px;
   }
+
+
+  .cta-button {
+    padding: 10px 20px;
+    background: #0071e3;
+    border: none;
+    border-radius: 30px;
+    font-size: 18px;
+    color: #fff;
+    margin: 5px
+    }
+    
+    .cta-button:hover {
+    background: #0c4da2;
+    }
+  
+    .cta-button + input[type="file"] {
+      display: none;
+    }
+
+   #cta-button {
+      padding: 10px 20px;
+      background: #0071e3;
+      border: none;
+      border-radius: 30px;
+      font-size: 18px;
+      color: #fff;
+      }
+      
+   #cta-button:hover {
+      background: #0c4da2;
+      }
 /* ########################## HIDE Choose File Button For Security Reasons ################################ */
 /* Hide the "Choose File" button for the class "global-button" */
-.global-button + input[type="file"] {
+/* .global-button + input[type="file"] {
   display: none;
-}
+} */
 
   /* #################### INPUT ########################### */
 
@@ -1108,5 +1037,31 @@ footer {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 20px;
+  color: #fff;
+}
+
+/* ####################################################################### */
+
+/* Style the dropdown container */
+select[name="lead_list"] {
+  min-width: 600px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  outline: none;
+}
+
+/* Style the dropdown options */
+select[name="lead_list"] option {
+  padding: 10px;
+  font-size: 14px;
+  background-color: #fff;
+  color: #333;
+}
+
+/* Style the selected option */
+select[name="lead_list"] option:checked {
+  background-color: #007BFF;
   color: #fff;
 }

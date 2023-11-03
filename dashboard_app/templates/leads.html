@@ -4,13 +4,81 @@
 
 {% block content %}
 
-<h3>Load Your Leads Here</h3>
+<h3>Create A New Leads List Here</h3>
 
 <form method="post" enctype="multipart/form-data" action="{% url 'leads' %}">
     {% csrf_token %}
-    <label for="tsv_file" class="global-button">Choose File</label>
-    <input type="file" name="tsv_file" id="tsv_file" accept=".tsv, .csv">
+
+    <label for="id_list_name">List Name:</label>
+
+    <input class="input-box-border" type="text" id="id_list_name" name="list_name" required placeholder="Enter list name...">
+
+    <!-- {% if form.list_name.errors %}
+    <div class="errorlist">
+    {{ form.list_name.errors }}
+    </div>
+    {% endif %} -->
+
+    <label for="csv_file" class="cta-button">Choose File</label>
+    <input type="file" name="csv_file" id="csv_file" accept=" .csv, .tsv">
     <button type="submit">Upload</button>
+
+
+    <div id="messages">
+        {% for message in messages %}
+            {% if 'lead_success' in message.tags %}
+                <div class="success">
+                    {{ message }}
+                </div>
+            {% elif 'lead_error' in message.tags %}
+                <div class="errorlist">
+                    {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>   
+    
 </form>
+
+
+
+<br>
+
+
+<form method="get" action="{% url 'leads' %}" id="leadListForm">
+    <!-- Your dropdown goes here -->
+    <select name="lead_list" form="leadListForm" onchange="this.form.submit()">
+        <option value="">Select a lead list to display</option>
+        {% for lead_list in lead_lists %}
+        <option value="{{ lead_list.id }}">{{ lead_list.list_name }} ({{ lead_list.uploaded_date|date:"F d, Y H:i:s" }})</option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+    <table class="card">
+        <thead>
+            <tr>
+                <th style="min-width : 100px;">Email</th>
+                <th style="min-width : 200px;">First Name</th>
+                <th style="min-width : 200px;">Last Name</th>
+                <th style="min-width : 100px;">Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in selected_lead_entries %}
+            <tr>
+                <td>{{ entry.email }}</td>
+                <td>{{ entry.first_name }}</td>
+                <td>{{ entry.last_name }}</td>
+                <td>{{ entry.phone }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</form>
+
+
+
+
 
 {% endblock %}

@@ -6,7 +6,29 @@
 {% block content %}
 <h1>Profile </h1>
 
+
+
+    
+
+
+
 <div class="card"> <!-- Experiment -->
+
+{% if messages %}
+    {% for message in messages %}
+    {% if "Successfully signed in as" in message.message %}
+        <div class="success">
+            <b>{{ message }}</b>
+        </div>
+    {% elif "warning" in message.message %}
+        <div class="errorlist">
+            {{ message }}
+        </div>
+    {% endif %}
+{% endfor %}
+{% endif %}
+
+
 <p><b> Email:</b><br> {{ user.email }}</p>
 <a href="{% url 'account_email' %}">Change Email</a>
 

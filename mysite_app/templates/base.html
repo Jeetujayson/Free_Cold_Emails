@@ -4,8 +4,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    {% block meta %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+    {% endblock %}
     <!-- SEO Optimized Meta Tags -->
     <meta name="description" content="Automate your cold emails for job hunting and freelance projects with Free Cold Emails's Automation Tools." />
     <meta name="keywords" content="Free Cold Email Automation For Job Seekers and Freelancers, Free Cold Email Automation, Free Email Verification" />
@@ -108,7 +109,7 @@
     <footer>
         
         <div id="legal">
-          <p><a href="{% url 'privacy_policy' %}" class="cta-button">Privacy Policy</a> | <a href="{% url 'terms_of_service' %}" class="cta-button">Terms of Service</a> <br>Copyright © 2023 by www.freecoldemails.com. All rights reserved.</p>
+          <p><a href="{% url 'privacy_policy' %}">Privacy Policy</a> | <a href="{% url 'terms_of_service' %}">Terms of Service</a> <br>Copyright © 2023 by www.freecoldemails.com. All rights reserved.</p>
         </div>
       </footer>
   

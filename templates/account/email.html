@@ -9,6 +9,22 @@
 {% if emailaddresses %}
 <p>{% trans 'The following email addresses are associated with your account:' %}</p>
 
+{% if messages %}
+    {% for message in messages %}
+    {% if "Confirmation email sent to" in message.message %}
+        <div class="success">
+            {{ message }}
+        </div>
+    {% elif "Removed email address" in message.message %}
+        <div class="errorlist">
+            {{ message }}
+        </div>
+    {% endif %}
+{% endfor %}
+{% endif %}
+
+
+
 <form action="{% url 'account_email' %}" class="email_list" method="post">
 {% csrf_token %}
 <!-- <fieldset class="blockLabels"> -->

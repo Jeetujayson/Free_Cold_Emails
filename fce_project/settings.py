@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-(cggagk%h&=##(ha^8&0$#iqx4b3ot!ud0nwo=6l*4ljtit7^m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '192.168.40.3']
+ALLOWED_HOSTS = ['127.0.0.1', '192.168.40.3', '192.168.40.5']
 
 
 # Application definition
@@ -177,9 +177,9 @@ AUTHENTICATION_BACKENDS = [
 SITE_ID = 1
 
 
-############### Custome Profile ###################################
+############### LOGIN LOGOUT REDIRECT (Default is /accounts/profile/) ###################################
 # LOGIN_REDIRECT_URL = 'db_view'  # This should match the name you specified in your URL pattern
-
+LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 # ACCOUNT_PROFILE = 'dashboard_app.views.profile'
 ACCOUNT_PROFILE = 'dashboard_app.views'
@@ -255,4 +255,5 @@ ACCOUNT_EMAIL_VERIFICATION_EXPIRE_DAYS = 3
 # # Automatically log in the user after email confirmation
 # ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 
-
+################################################################################
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None

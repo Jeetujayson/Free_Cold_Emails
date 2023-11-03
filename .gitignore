@@ -19,3 +19,6 @@ __pycache__/
 # Ignore static and media files (if you use collectstatic)
 staticfiles/
 media/
+
+# Ignore RTF Text files
+Django Helpful Tips.rtf
