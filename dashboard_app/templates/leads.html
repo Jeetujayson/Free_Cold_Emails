@@ -3,26 +3,24 @@
 {% block title %} Load Leads {% endblock %}
 
 {% block content %}
+<!-- {% if show_overlay %}
+    <div id="overlay">
+        <p>Please Wait...</p>
+    </div>
+{% endif %} -->
+<div id="overlay">
+    <p>Please Wait...<br>Reincarnation Is Superstition</p>
+   
+</div>
 
 <h3>Create A New Leads List Here</h3>
-
 <form method="post" enctype="multipart/form-data" action="{% url 'leads' %}">
     {% csrf_token %}
-
     <label for="id_list_name">List Name:</label>
-
     <input class="input-box-border" type="text" id="id_list_name" name="list_name" required placeholder="Enter list name...">
-
-    <!-- {% if form.list_name.errors %}
-    <div class="errorlist">
-    {{ form.list_name.errors }}
-    </div>
-    {% endif %} -->
-
     <label for="csv_file" class="cta-button">Choose File</label>
     <input type="file" name="csv_file" id="csv_file" accept=" .csv, .tsv">
-    <button type="submit">Upload</button>
-
+    <button class="cta-button" type="submit">Upload</button>
 
     <div id="messages">
         {% for message in messages %}
@@ -37,48 +35,131 @@
             {% endif %}
         {% endfor %}
     </div>   
-    
 </form>
-
-
-
 <br>
-
 
 <form method="get" action="{% url 'leads' %}" id="leadListForm">
     <!-- Your dropdown goes here -->
+
     <select name="lead_list" form="leadListForm" onchange="this.form.submit()">
         <option value="">Select a lead list to display</option>
         {% for lead_list in lead_lists %}
-        <option value="{{ lead_list.id }}">{{ lead_list.list_name }} ({{ lead_list.uploaded_date|date:"F d, Y H:i:s" }})</option>
-        {% endfor %}
+        <option value="{{ lead_list.id }}">{{ lead_list.list_name }} ({{ lead_list.uploaded_date|date:"M d, Y | H:i:s" }})</option>
+        {% endfor %}    
     </select>
 
     <br><br>
-    <table class="card">
-        <thead>
-            <tr>
-                <th style="min-width : 100px;">Email</th>
-                <th style="min-width : 200px;">First Name</th>
-                <th style="min-width : 200px;">Last Name</th>
-                <th style="min-width : 100px;">Phone</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entry in selected_lead_entries %}
-            <tr>
-                <td>{{ entry.email }}</td>
-                <td>{{ entry.first_name }}</td>
-                <td>{{ entry.last_name }}</td>
-                <td>{{ entry.phone }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
 </form>
 
 
 
 
+<h4 style="text-align: center;">
+    <form method="post" action="{% url 'leads' %}">
+{% if list_name %}
+        <b>Selected List: {{ list_name }} ({{ selected_lead_list.uploaded_date|date:"M d, Y | H:i:s" }})</b>
+        {% csrf_token %}
+        <input type="hidden" name="delete_list" value="{{ selected_lead_list.id }}">
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this list?');">Delete List</button>
+        <div id="messages">
+{% endif %}
+
+            {% for message in messages %}
+                {% if 'delete_success' in message.tags %}
+                    <div class="success">
+                        {{ message }}
+                    </div>
+                {% elif 'delete_error' in message.tags %}
+                    <div class="errorlist">
+                        {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>   
+    </form>    
+</h4>
+        
+        <div class="pagination">
+
+            {% if selected_lead_entries.has_previous %}
+            <a class="nav-links" href="?page=1">First |</a>
+            <a class="nav-links" href="?page={{ selected_lead_entries.previous_page_number }}">Previous</a>
+            {% endif %}
+
+            {% for i in selected_lead_entries.paginator.page_range %}
+
+                {% if i >= selected_lead_entries.number|add:"-5" and i <= selected_lead_entries.number|add:"5" %}
+                        {% if selected_lead_entries.number == i %}
+                        <span class="current-page">{{ i }}</span>  <!-- Highlight the current page number -->
+                        {% else %}
+                        <a href="?page={{ i }}">{{ i }}</a>
+                        {% endif %}
+                        
+                {% elif i == selected_lead_entries.number|add:"-6" or i == selected_lead_entries.number|add:"6" %}
+                        ...
+                {% endif %}
+            {% endfor %}
+
+            {% if selected_lead_entries.has_next %}
+            <a class="nav-links" href="?page={{ selected_lead_entries.next_page_number }}">Next | </a>
+            <a class="nav-links" href="?page={{ selected_lead_entries.paginator.num_pages }}">Last</a>
+            {% endif %}
+            </div>
+                    
+                    <div class="leads-table-card">
+                        <table class="leads-table">
+                    <thead>
+                        <tr>
+                            <th class="leads-table" style="min-width : 100px;">Email</th>
+                            <th class="leads-table" style="min-width : 200px;">First Name</th>
+                            <th class="leads-table" style="min-width : 200px;">Last Name</th>
+                            <th class="leads-table" style="min-width : 100px;">Phone</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entry in selected_lead_entries %}
+                        <tr>
+                            <td class="leads-table">{{ entry.email }}</td>
+                            <td class="leads-table">{{ entry.first_name }}</td>
+                            <td class="leads-table">{{ entry.last_name }}</td>
+                            <td class="leads-table">{{ entry.phone }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% if list_name %}
+<div class="pagination">
+    {% if selected_lead_entries.has_previous %}
+        <a class="nav-links" href="?page=1">First |</a>
+        <a class="nav-links" href="?page={{ selected_lead_entries.previous_page_number }}">Previous</a>
+    {% endif %}
+    {% for i in selected_lead_entries.paginator.page_range %}
+        {% if i >= selected_lead_entries.number|add:"-4" and i <= selected_lead_entries.number|add:"4" %}
+            {% if selected_lead_entries.number == i %}
+                <span class="current-page">{{ i }}</span>  <!-- Highlight the current page number -->
+            {% else %}
+                <a href="?page={{ i }}">{{ i }}</a>
+            {% endif %}
+        {% elif i == selected_lead_entries.number|add:"-5" or i == selected_lead_entries.number|add:"5" %}
+            ...
+        {% endif %}
+    {% endfor %}
+    {% if selected_lead_entries.has_next %}
+        <a class="nav-links" href="?page={{ selected_lead_entries.next_page_number }}">Next | </a>
+        <a class="nav-links" href="?page={{ selected_lead_entries.paginator.num_pages }}">Last</a>
+    {% endif %}
+
+</div>
+{% endif %}
+
+
+{% endblock %}
+
+{% block js_block %}
+<!-- Include the JavaScript file -->
+
+<script src="{% static 'js/db_app.js' %}"></script>
 
 {% endblock %}

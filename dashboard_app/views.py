@@ -3,83 +3,119 @@ from django.contrib.auth.decorators import login_required
 from allauth.account.models import EmailAddress
 from django.db.utils import IntegrityError  # Import IntegrityError
 from .forms import SmtpForm
-from .models import SmtpModel, LeadList, LeadEntry 
+from .models import SmtpModel, LeadList, LeadEntry
 from django.http import JsonResponse  # Import JsonResponse for AJAX responses
 import smtplib
 from django.contrib import messages
 from .smtp_verification import validate_smtp_data
 from django.shortcuts import render, redirect
 from .forms import SmtpForm
-# from .models import SmtpModel
 from .smtp_verification import validate_smtp_data
 from django.core.exceptions import ValidationError
 from mysite_app.models import AccountLimit  # Import the AccountLimits model
-
 import csv
+from .lead_validation import validate_leads
+from django.core.paginator import Paginator
+import time
 
 
 @login_required
 def leads(request):
-    # selected_lead_list_id = None
+    show_overlay = False
     if request.method == 'POST':
+        show_overlay = True
         csv_file = request.FILES.get('csv_file')
         list_name = request.POST.get('list_name')
-        if not list_name:
-            messages.error(request, 'Please provide a list name.', extra_tags='lead_error')
-        elif not csv_file:
-            messages.error(request, 'Please select a file to upload.', extra_tags='lead_error')
-        else:
-            if not list_name.isalnum():
-                messages.error(request, 'List name should contain only alphanumeric characters.', extra_tags='lead_error')
+        delete_list = request.POST.get('delete_list')
+        if delete_list:
+            try:
+                lead_list = LeadList.objects.get(id=delete_list, user=request.user)
+                lead_list.delete()
+                print("Deleted Successfully")
+                messages.success(request, 'List deleted successfully.', extra_tags='delete_success')
+                print("Deleted Success Message Generated ")
+                # Clear the session if the list is deleted
+                if 'selected_lead_list_id' in request.session:
+                    if request.session['selected_lead_list_id'] == delete_list:
+                        del request.session['selected_lead_list_id']
+            except LeadList.DoesNotExist:
+                messages.error(request, 'List not found or you do not have permission to delete it.', extra_tags='delete_error')
+        else:     
+            if not list_name:
+                messages.error(request, 'Please provide a list name.', extra_tags='lead_error')
+            elif not csv_file:
+                messages.error(request, 'Please select a file to upload.', extra_tags='lead_error')
             else:
-                if LeadList.objects.filter(user=request.user, list_name=list_name).exists():
-                    messages.error(request, 'A list with this name already exists. Please choose a unique name.', extra_tags='lead_error')
+                if not list_name.isalnum():
+                    messages.error(request, 'List name should contain only alphanumeric characters.', extra_tags='lead_error')
                 else:
-                    if csv_file.name.endswith(('.csv', '.tsv')):
-                        decoded_file = csv_file.read().decode('utf-8')
-                        file_data = csv.reader(decoded_file.splitlines(), delimiter='\t' if csv_file.name.endswith('.tsv') else ',')
-                        # Create a new LeadList
-                        lead_list = LeadList.objects.create(user=request.user, list_name=list_name)
-                        for row in file_data:
-                            lead_entry = LeadEntry(lead_list=lead_list, email=row[0]) # Create a new LeadEntry for each row in the uploaded file
-                            # Check if other fields exist in the row before assigning them
-                            if len(row) > 1:
-                                lead_entry.first_name = row[1]
-                            if len(row) > 2:
-                                lead_entry.last_name = row[2]
-                            if len(row) > 3:
-                                lead_entry.phone = row[3]
-                            lead_entry.save()
-                        messages.success(request, 'File uploaded and processed successfully.', extra_tags='lead_success')
+                    if LeadList.objects.filter(user=request.user, list_name=list_name).exists():
+                        messages.error(request, 'A list with this name already exists. Please choose a unique name.', extra_tags='lead_error')
                     else:
-                        messages.error(request, 'Invalid file format. Please upload a CSV or TSV file.', extra_tags='lead_error')
-    else: # GET Request Code
-        selected_lead_list_id = request.GET.get('lead_list')  # Handle lead list selection SUBMIT from the existing dropdown
-
-        # if selected_lead_list_id:
-            
-        #     request.session['selected_lead_list_id'] = selected_lead_list_id # Store the selected lead list in the session
-        # else:
-        #     print("Nothing Selected")
-
-        lead_lists = LeadList.objects.filter(user=request.user) # Retrieve the user's lead lists for the dropdown
-        print("Selected Lead List ID:", selected_lead_list_id)
-
-
-        if selected_lead_list_id:
+                        if csv_file.name.endswith(('.csv', '.tsv')):
+                            decoded_file = csv_file.read().decode('utf-8')
+                            file_data = csv.reader(decoded_file.splitlines(), delimiter='\t' if csv_file.name.endswith('.tsv') else ',')
+                            email_validation_failed = False  # Flag to track email validation failure
+                            for row in file_data:
+                                email = row[0]
+                                try:
+                                    validate_leads(email)  # Pass the email to the email validation function
+                                except ValidationError as e:
+                                    e = (', '.join(e))
+                                    messages.error(request, e, extra_tags='lead_error')
+                                    email_validation_failed = True
+                                    break  # Exit the loop on email validation failure
+                            if not email_validation_failed:           
+                                # Create a new LeadList
+                                file_data = csv.reader(decoded_file.splitlines(), delimiter='\t' if csv_file.name.endswith('.tsv') else ',')
+                                lead_list = LeadList.objects.create(user=request.user, list_name=list_name)
+                                print(file_data)
+                                for row in file_data:
+                                    lead_entry = LeadEntry(lead_list=lead_list, email=row[0]) # Create a new LeadEntry for each row in the uploaded file
+                                    if len(row) > 1: # Check if other fields exist in the row before assigning them
+                                        lead_entry.first_name = row[1]
+                                    if len(row) > 2:
+                                        lead_entry.last_name = row[2]
+                                    if len(row) > 3:
+                                        lead_entry.phone = row[3]
+                                    lead_entry.save()
+                                messages.success(request, 'File uploaded and processed successfully.', extra_tags='lead_success')
+                        else:
+                            messages.error(request, 'Invalid file format. Please upload a CSV or TSV file.', extra_tags='lead_error')
+                            
+    lead_lists = LeadList.objects.filter(user=request.user) # Retrieve the user's lead lists for the dropdown
+    selected_lead_list_id = request.GET.get('lead_list')  # Handle lead list selection SUBMIT from the existing dropdown
+    
+    if selected_lead_list_id:
+        selected_lead_entries = LeadEntry.objects.filter(lead_list_id=selected_lead_list_id)
+        request.session['selected_lead_list_id'] = selected_lead_list_id # Store the selected lead list in the session
+    else:
+        if 'selected_lead_list_id' in request.session: # Check if there's a selected lead list in the session
+            selected_lead_list_id = request.session['selected_lead_list_id']
             selected_lead_entries = LeadEntry.objects.filter(lead_list_id=selected_lead_list_id)
-            request.session['selected_lead_list_id'] = selected_lead_list_id # Store the selected lead list in the session
         else:
-
-                # Check if there's a selected lead list in the session
-            if 'selected_lead_list_id' in request.session:
-                selected_lead_list_id = request.session['selected_lead_list_id']
-                selected_lead_entries = LeadEntry.objects.filter(lead_list_id=selected_lead_list_id)
-            else:
-                selected_lead_entries = None
-    return render(request, 'leads.html', {'lead_lists': lead_lists, 'selected_lead_entries': selected_lead_entries, 'message': messages.get_messages(request)})
-
-
+            selected_lead_entries = None
+    
+    try:
+        #Pagination
+        paginator = Paginator(selected_lead_entries, 50) # Show 10 leads per page
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+    except:
+        paginator = None
+        page_number = None
+        page_obj = None
+    try:
+        selected_lead_list = LeadList.objects.get(id=selected_lead_list_id) # Get the list_name from the selected LeadList
+        list_name = selected_lead_list.list_name
+    except:
+        selected_lead_list = None
+        list_name = None
+    # selected_lead_list = LeadList.objects.get(id=selected_lead_list_id) # Get the list_name from the selected LeadList
+    # list_name = selected_lead_list.list_name
+    # time.sleep(3)
+    show_overlay = False
+    return render(request, 'leads.html', {'lead_lists': lead_lists, 'list_name': list_name, 'selected_lead_list': selected_lead_list, 'selected_lead_entries': page_obj, 'show_overlay': show_overlay, 'message': messages.get_messages(request)})
 
 # @login_required
 # def leads(request):

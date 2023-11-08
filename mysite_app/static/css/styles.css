@@ -1040,7 +1040,7 @@ footer {
   color: #fff;
 }
 
-/* ####################################################################### */
+/* ########################## SELECT ############################################# */
 
 /* Style the dropdown container */
 select[name="lead_list"] {
@@ -1056,7 +1056,7 @@ select[name="lead_list"] {
 select[name="lead_list"] option {
   padding: 10px;
   font-size: 14px;
-  background-color: #fff;
+  background-color: rgb(255, 255, 255);
   color: #333;
 }
 
@@ -1064,4 +1064,69 @@ select[name="lead_list"] option {
 select[name="lead_list"] option:checked {
   background-color: #007BFF;
   color: #fff;
+}
+
+/* Style the selected option */
+select[name="lead_list"] option:hover {
+  background-color: #1aff00;
+  color: #fff;
+}
+
+/* ########################### TABLE ####################################################### */
+
+.leads-table-card {
+  width: 50%;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  margin: auto;
+
+  border: 1px solid #ccc; /* Add a border */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  padding: 10px; 
+  border-radius: 10px;
+}
+
+.leads-table table {
+  width: auto; /* Allow the table to adjust to content width */
+  border-collapse: collapse;
+  margin: auto;
+}
+
+.leads-table th, .leads-table td {
+
+  border-bottom: 1px solid #ddd;
+  padding: 0px 5px;
+  white-space: nowrap; /* Prevent line breaks in cells */
+  text-align: left;
+}
+
+/* ############################ pagination ################################## */
+.pagination {
+  justify-content: center;
+  padding: 10px;
+}
+
+.pagination a {
+  color: #444;
+  text-decoration: none;
+}
+
+.pagination a:hover {
+  color: #0071e3;
+}
+
+.pagination .current-page {
+  color: rgb(255, 255, 255);
+  background-color: #646262;
+  padding: 5px 10px;
+  border-radius: 20px;
+  /* margin: 0 10px; */
+}
+
+.pagination .nav-links {
+  color: #0071e3;
+  font-weight: bold;
+}
+
+.pagination .nav-links:hover {
+  color: #FFA500;
 }
