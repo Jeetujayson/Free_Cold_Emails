@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 class SmtpForm(forms.ModelForm):
     class Meta:
         model = SmtpModel
-        fields = ['email', 'smtp_server', 'port', 'app_password']
+        fields = ['email', 'smtp_server', 'port', 'imap_server', 'imap_port', 'app_password']
         
 
     def clean(self):
@@ -18,12 +18,14 @@ class SmtpForm(forms.ModelForm):
 
         smtp_server = cleaned_data.get('smtp_server')
         port = cleaned_data.get('port')
+        imap_server = cleaned_data.get('imap_server')
+        imap_port = cleaned_data.get('imap_port')
         app_password = cleaned_data.get('app_password')
         user = cleaned_data.get('user')
 
         try:
             print("Try Form Validation")
-            validate_smtp_data(email, smtp_server, port, app_password, user)
+            validate_smtp_data(email, smtp_server, port, imap_server, imap_port, app_password, user)
             print("Tried Form Validation")
             return cleaned_data
         except ValidationError as e:

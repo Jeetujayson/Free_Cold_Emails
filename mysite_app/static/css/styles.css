@@ -4,11 +4,11 @@ a, button {
 }
 
 button { 
-  padding: 10px 20px;
+  padding: 8px 16px;
   background: #0071e3;
   border: none;
   border-radius: 30px;
-  font-size: 18px;
+  font-size: 16px;
   color: #fff;
   margin: 5px;
   }
@@ -17,7 +17,20 @@ button:hover {
   background: #0c4da2;
   }
   
+.delete-button  { 
+  padding: 8px 16px;
+  background: #ff0000;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  color: #fff;
+  margin: 5px;
+  }
 
+.delete-button:hover {
+  background: #c70000;
+  }
+    
 
 /* ############################################################################################################################ */
 
@@ -95,13 +108,31 @@ body {
   }
 
 /* ######################################## Dashboard Nav Menu #############################################*/
+/* .dashboard-header{
+
+  font-size: 50px ;
+  line-height: 1.1 ;
+  font-weight: 600 ;
+  letter-spacing: 0em ;
+  background-image: linear-gradient(to bottom, #ffffff 60%, #d8d8d8);
+  margin: 0px;
+  padding: 35px 0px;
+
+}
+.dashboard-body{
+
+  margin-top: 0px;
+  background-image: linear-gradient(to top, #ffffff 99%, #d8d8d8);
+
+} */
 .dashboard-nav-menu {
       
   display: flex;
   justify-content: center;
   align-items: center;
-  /* padding: 5px; */
   background: #d8d8d8;
+  /* padding: 10px; */
+  /* background-image: linear-gradient(#ffffff -5%, #d8d8d8 50%, #ffffff 95%); */
   }
 
   .dashboard-nav-menu ul {
@@ -467,6 +498,7 @@ header {
   letter-spacing: 0em;
 
 }
+
 
  h2{
 
@@ -920,11 +952,11 @@ footer {
 /* Use class="global-button" to use this style */
 .global-button { 
 
-  padding: 10px 20px;
+  padding: 8px 16px;
   background: #0071e3;
   border: none;
   border-radius: 30px;
-  font-size: 18px;
+  font-size: 16px;
   color: #fff;
   margin: 5px;
   }
@@ -935,22 +967,22 @@ footer {
   }
   #global-button {
     width: auto;
-    padding: 10px 20px;
+    padding: 8px 16px;
     background: #0071e3;
     border: none;
     border-radius: 30px;
-    font-size: 18px;
+    font-size: 16px;
     color: #fff;
     margin: 5px;
   }
 
 
   .cta-button {
-    padding: 10px 20px;
+    padding: 8px 16px;
     background: #0071e3;
     border: none;
     border-radius: 30px;
-    font-size: 18px;
+    font-size: 16px;
     color: #fff;
     margin: 5px
     }
@@ -964,11 +996,11 @@ footer {
     }
 
    #cta-button {
-      padding: 10px 20px;
+    padding: 8px 16px;
       background: #0071e3;
       border: none;
       border-radius: 30px;
-      font-size: 18px;
+      font-size: 16px;
       color: #fff;
       }
       
@@ -989,7 +1021,7 @@ footer {
 
 .input-box-border{
   /* background-color: #f8f8f8; */
-  width: 12%;
+  width: auto;
   padding: 3px;
   margin: 5px 0;
   border: 1px solid #ccc;
@@ -1043,11 +1075,11 @@ footer {
 /* ########################## SELECT ############################################# */
 
 /* Style the dropdown container */
-select[name="lead_list"] {
+select[name="lead_list"], [name="name"] {
   min-width: 600px;
   padding: 8px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 10px;
   font-size: 16px;
   outline: none;
 }
@@ -1075,7 +1107,7 @@ select[name="lead_list"] option:hover {
 /* ########################### TABLE ####################################################### */
 
 .leads-table-card {
-  width: 50%;
+  width: 70%;
   overflow-x: auto; /* Enable horizontal scrolling */
   margin: auto;
 
@@ -1085,18 +1117,32 @@ select[name="lead_list"] option:hover {
   border-radius: 10px;
 }
 
-.leads-table table {
-  width: auto; /* Allow the table to adjust to content width */
-  border-collapse: collapse;
+.leads-table{
+  width: auto;
+  border-collapse: collapse ;
   margin: auto;
+  border-spacing: 2px;
+
 }
 
 .leads-table th, .leads-table td {
-
+  max-width: 300px;
+  /* min-width: 50px; */
+  overflow-x: auto;    /* Auto creates a scrollbar for cells that have overflowing text */
+  /* text-overflow: ellipsis; */
   border-bottom: 1px solid #ddd;
-  padding: 0px 5px;
-  white-space: nowrap; /* Prevent line breaks in cells */
+  padding: 0px 10px;
+  white-space: nowrap; 
   text-align: left;
+  border-right: 10px solid rgb(255, 255, 255);
+
+
+
+}
+@-moz-document url-prefix() {
+  .leads-table th, .leads-table td  {
+    text-overflow: ellipsis;
+  }
 }
 
 /* ############################ pagination ################################## */
@@ -1129,4 +1175,35 @@ select[name="lead_list"] option:hover {
 
 .pagination .nav-links:hover {
   color: #FFA500;
+}
+
+/* ############################### Campaigns Page ################################## */
+select[name="sender_email"], [name="timezone"], [name="daily_limit"] {
+  min-width: 200px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  outline: none;
+  
+}
+
+/* Style the dropdown options */
+select[name="sender_email"] option {
+  padding: 10px;
+  font-size: 14px;
+  background-color: rgb(255, 255, 255);
+  color: #333;
+}
+
+/* Style the selected option */
+select[name="sender_email"] option:checked {
+  background-color: #007BFF;
+  color: #fff;
+}
+
+/* Style the selected option */
+select[name="sender_email"] option:hover {
+  background-color: #1aff00;
+  color: #fff;
 }

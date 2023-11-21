@@ -61,19 +61,18 @@
 </div>
 
 {% block extra_body %}
-<h1>Dashboard </h1>
+<h1 style="margin: 10px 0px;">Dashboard </h1>
 <nav class ="dashboard-nav-menu">
   <ul>
 
     <li><a {% if request.path == '/accounts/dashboard/' %}class="active"{% endif %} href="{% url 'dashboard' %}">Your Emails</a></li>
     <li><a {% if request.path == '/accounts/dashboard/leads/' %}class="active"{% endif %} href="{% url 'leads' %}">Load Leads</a></li>    
-    <li><a {% if request.path == '/accounts/dashboard/message_draft/' %}class="active"{% endif %} href="{% url 'message_draft' %}">Message Draft</a></li>
+    <li><a {% if request.path == '/accounts/dashboard/campaigns/' %}class="active"{% endif %} href="{% url 'campaigns' %}">Campaigns</a></li>
     <li><a {% if request.path == '/accounts/dashboard/schedule/' %}class="active"{% endif %} href="{% url 'schedule' %}">Schedule</a></li>
 
   </ul>
 </nav>
-</div>
-</div>
+
 {% endblock extra_body %}
 
   </header>

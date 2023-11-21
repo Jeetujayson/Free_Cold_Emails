@@ -16,8 +16,19 @@
 
 import re
 from django.core.exceptions import ValidationError
+# from django.utils.html import escape
 
 def validate_leads(email):
-    pattern = r'^[\w\.-]+@[\w\.-]+$'
-    if not re.match(pattern, email):
-        raise ValidationError("Remove this, it doesn't look like an email to me: (" + email + ")")
+    email = email.lower()
+    email = email.strip(" ,.")
+    
+    # pattern = r'^[\w\.-]+@[\w\.-]+$'
+    # pattern = r"^[\w\.'-]+@[\w\.-]+$"
+    pattern = r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+
+    
+    if not re.fullmatch (pattern, email):
+
+        # raise ValidationError(f" Remove this, it doesn't look like an email to me: (" + email + ")")
+        raise ValidationError(f"looks funny to me. Please remove it:\n ({email})")
+

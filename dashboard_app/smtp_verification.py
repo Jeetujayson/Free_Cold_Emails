@@ -1,28 +1,6 @@
-# import smtplib
-# from django.core.exceptions import ValidationError
-# from .models import SmtpModel
-
-# def validate_smtp_data(email, smtp_server, port, app_password, user):
-#     try:
-#         # Check if the email is unique for the user
-#         if SmtpModel.objects.filter(user=user, email=email).exists():
-#             raise ValidationError("Email must be unique for your account.")
-
-#         # Try to establish a connection to the SMTP server
-#         smtp = smtplib.SMTP(smtp_server, port)
-#         smtp.ehlo()
-#         if not smtp.has_extn("STARTTLS"):
-#             raise ValidationError("SMTP server does not support STARTTLS.")
-#         smtp.starttls()
-#         smtp.ehlo()
-#         if not smtp.has_extn("AUTH"):
-#             raise ValidationError("SMTP server does not support authentication.")
-#         smtp.login(email, app_password)
-#         smtp.quit()
-#     except (smtplib.SMTPException, smtplib.SMTPResponseException):
-#         raise ValidationError("SMTP server, port, or app password is incorrect. Please check your settings.")
 
 import smtplib
+import imaplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email_validator import validate_email, EmailNotValidError
@@ -31,7 +9,7 @@ from django.core.exceptions import ValidationError
 from mysite_app.models import AccountLimit  # Import the AccountLimits model
 
 
-def validate_smtp_data(email, smtp_server, port, app_password, user):
+def validate_smtp_data(email, smtp_server, port, imap_server, imap_port, app_password, user):
     # Convert the email to lowercase
     email = email.lower()
     
@@ -102,5 +80,18 @@ def validate_smtp_data(email, smtp_server, port, app_password, user):
     except Exception as e:
         print("Validate General Validation Error")
         raise ValidationError(f"Validation unsuccessful due to: {str(e)}")
+
+    try:
+        # Connect to the IMAP server
+        connection = imaplib.IMAP4_SSL(imap_server, imap_port)
+
+        # Login using the provided email and app password
+        connection.login(email, app_password)
+
+        # Logout to close the connection
+        connection.logout()
+    except Exception as e:
+        raise ValidationError("Validation unsuccessful due to incorrect IMAP SERVER & PORT")
+
 
     return "Validation successful"

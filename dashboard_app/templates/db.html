@@ -30,24 +30,36 @@
   
 
     <label for="id_smtp_server">SMTP Server:</label>
-    <input class="input-box-border" type="text" id="id_smtp_server" name="smtp_server" required>
+    <input value="smtp.gmail.com" class="input-box-border" type="text" id="id_smtp_server" name="smtp_server" required>
     {% if form.smtp_server.errors %}
     <p class="errorlist">{{ form.smtp_server.errors }}</p>
     {% endif %}
 
 
     <label for="id_port">Port:</label>
-    <input class="input-box-border" type="number" id="id_port" name="port" required>
+    <input value="587" class="input-box-border" type="number" id="id_port" name="port" required>
     
     <label for="id_app_password">App Password:</label>
     <input class="input-box-border" type="password" id="id_app_password" name="app_password" required>
+    
+    <br>
+    <label for="id_imap_server">IMAP Server:</label>
+    <input value="imap.gmail.com" class="input-box-border" type="text" id="id_imap_server" name="imap_server" required>
+    {% if form.imap_server.errors %}
+    <p class="errorlist">{{ form.imap_server.errors }}</p>
+    {% endif %}
+    
+    
+    <label for="id_imap_port">Port:</label>
+    <input value="993" class="input-box-border" type="number" id="id_imap_port" name="imap_port" required>
+    <br>
     <button type="submit">Link Email</button>
+    
     {% if error_message %}
     <div class="errorlist">
        {{ error_message }} 
     </div>
     {% endif %}
-    
 </form>
 <!-- </section> -->
 <!-- Display linked data from the database -->
@@ -77,7 +89,7 @@
                 <form method="post" action="{% url 'dashboard' %}">
                     {% csrf_token %}
                     <input type="hidden" name="delete_smtp" value="{{ email_data.id }}">
-                    <button type="submit">Delete</button>
+                    <button class="delete-button" type="submit" onclick="return confirm('Are you sure you want to delete the linked SMTP Email?');">Delete</button>
                 </form>
         </td>
         </tr>

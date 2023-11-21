@@ -1,0 +1,157 @@
+{% extends "dashboard_base.html" %}
+{% load static %}
+{% block title %} Campaigns {% endblock %}
+
+
+{% block content %}
+  <h3>Create a New Campaign</h3>
+
+  <form method="post" action="{% url 'campaigns' %}">
+    {% csrf_token %}
+
+    <label for="campaign_name">Campaign Name:</label>
+    <input style="min-width: 210px;" class="input-box-border" type="text" id="campaign_name" name="campaign_name" placeholder="Enter a unique campaign name..." required>
+    <br>
+    <label for="id_sender_email">Sender Email:</label>
+    <select id="id_sender_email" name="sender_email" required>
+      {% for smtp in smtp_list %}
+        <option value="{{ smtp.id }}">{{ smtp.email }}</option>
+      {% endfor %}
+    </select>
+
+    <label for="id_lead_list">Lead List:</label>
+    <select style="min-width: 200px; max-width: 300px;" id="id_lead_list" name="lead_list" required>
+      {% for lead_list in lead_lists %}
+        <option value="{{ lead_list.id }}">{{ lead_list.list_name }} ({{ lead_list.uploaded_date|date:"M d, Y | H:i:s" }})</option>
+      {% endfor %}
+    </select>
+
+    <label for="id_timezone">Timezone:</label>
+    <select id="id_timezone" name="timezone" required>
+      {% for tz, tz_name in TIMEZONE_CHOICES %}
+        <option value="{{ tz }}">{{ tz_name }}</option>
+      {% endfor %}
+    </select>
+
+    <label for="id_daily_limit">Daily Limit:</label>
+    <select style="min-width: 200px; max-width: 300px;" id="id_daily_limit" name="daily_limit" required>
+      {% for value in daily_limit_range %}
+        <option value="{{ value }}">{{ value }}</option>
+      {% endfor %}
+    </select>
+    
+    <!-- Add more fields as needed -->
+    <br>
+    <button type="submit">Create Campaign</button>
+
+    <div id="messages">
+      {% for message in messages %}
+          {% if 'campaign_success' in message.tags %}
+              <div class="success">
+                  {{ message }}
+              </div>
+          {% elif 'campaign_error' in message.tags %}
+              <div class="errorlist">
+                  {{ message |linebreaksbr|safe}}
+              </div>
+          {% endif %}
+      {% endfor %}
+  </div> 
+
+  </form>
+
+  <h4>Edit Your Campaign</h4>
+
+  <!-- Your dropdown goes here -->
+  <form method="get" action="{% url 'campaigns' %}" id="campaignsListForm">
+    <select name="name" form="campaignsListForm" onchange="this.form.submit()">
+        <option value="">Select a campaign to edit</option>
+        {% for campaign in campaigns %}
+        
+        <option value="{{ campaign.id }}">{{ campaign.name }}</option>
+        {% endfor %}    
+    </select>
+    <br><br>
+</form>
+
+<form method="post" action="{% url 'campaigns' %}">
+  {% if selected_campaign.name %}
+  <p style="text-align: center;">
+    <b style="color: #0071e3;">Selected Campaign: </b><b style="color: #e38800;">{{ selected_campaign.name }} </b>
+    <!-- For deleting the campaign -->
+    {% csrf_token %}
+    <input type="hidden" name="delete_campaign" value="{{ selected_campaign.id }}">
+    <button type="submit" class="delete-button" onclick="return confirm('Are you sure you want to delete this list?');">Delete Campaign</button></p>
+    <div id="messages">
+      {% for message in messages %}
+          {% if 'delete_success' in message.tags %}
+              <div class="success">
+                  {{ message }}
+              </div>
+          {% elif 'delete_error' in message.tags %}
+              <div class="errorlist">
+                  {{ message }}
+              </div>
+          {% endif %}
+      {% endfor %}
+    </div>   
+    {% endif %}
+  </form> 
+
+  <!-- For editing the campaign -->
+
+  <form method="post" action="{% if selected_campaign %}{% url 'save_campaign' selected_campaign.id %}{% endif %}">
+
+
+    {% if selected_campaign.name %}
+    {% csrf_token %}
+
+
+    <label for="id_campaign_name">Campaign Name:</label>
+    <input type="text" id="id_campaign_name" name="campaign_name" value="{{ selected_campaign.name }}" required>
+
+      <label for="id_sender_email">Sender Email:</label>
+      <select id="id_sender_email" name="sender_email" required>
+        {% for smtp in smtp_list %}
+
+          <option value="{{ smtp.id }}" {% if smtp.id == selected_campaign.sender_email.id %}selected{% endif %}>
+            {{ smtp.email }}
+        </option>
+        {% endfor %}
+      </select>
+    
+      <label for="id_lead_list">Lead List:</label>
+      <select style="min-width: 200px; max-width: 300px;" id="id_lead_list" name="lead_list" required>
+        {% for lead_list in lead_lists %}
+
+          <option value="{{ lead_list.id }}" {% if lead_list.id == selected_campaign.lead_list.id %}selected{% endif %}>
+            {{ lead_list.list_name }} ({{ lead_list.uploaded_date|date:"M d, Y | H:i:s" }})
+        </option>
+
+        {% endfor %}
+      </select>
+    
+      <label for="id_timezone">Timezone:</label>
+      <select id="id_timezone" name="timezone" required>
+        {% for tz, tz_name in TIMEZONE_CHOICES %}
+        <option value="{{ tz }}" {% if tz == selected_campaign.timezone|stringformat:"s" %}selected{% endif %}>
+          {{ tz_name }}
+      </option>
+        {% endfor %}
+      </select>
+    
+      <label for="id_daily_limit">Daily Limit:</label>
+      <select style="min-width: 200px; max-width: 300px;" id="id_daily_limit" name="daily_limit" required>
+        {% for value in daily_limit_range %}
+
+          <option value="{{ value }}" {% if value == selected_campaign.daily_limit %}selected{% endif %}>{{ value }}</option>
+        {% endfor %}
+      </select>
+      <!-- Add more fields as needed -->
+      <br>
+      <button type="submit">Save Campaign</button>
+  {% endif %}
+  
+  </form> 
+
+{% endblock %}
