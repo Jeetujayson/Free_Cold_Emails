@@ -1075,7 +1075,7 @@ footer {
 /* ########################## SELECT ############################################# */
 
 /* Style the dropdown container */
-select[name="lead_list"], [name="name"] {
+select[name="lead_list"], [name="campaign_name"] {
   min-width: 600px;
   padding: 8px;
   border: 1px solid #ccc;
@@ -1206,4 +1206,13 @@ select[name="sender_email"] option:checked {
 select[name="sender_email"] option:hover {
   background-color: #1aff00;
   color: #fff;
+}
+
+/* ###################################### HR ########################################## */
+hr {
+
+  border: 1px solid #d8d8d8;
+  margin: 2px auto;
+  width: 800px;
+
 }

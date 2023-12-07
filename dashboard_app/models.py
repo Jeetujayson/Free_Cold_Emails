@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from django.utils import timezone
 from timezone_field import TimeZoneField
+from datetime import time
 # from django.db.models import Q, F # Uncomment is Something breaks
 
 # from django.core.exceptions import ValidationError # Uncomment is Something breaks
@@ -49,13 +50,42 @@ class LeadEntry(models.Model):
 class Campaign(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     #change the name to campaign_name
-    name = models.CharField(max_length=255)
+    campaign_name = models.CharField(max_length=255)
     sender_email = models.ForeignKey(SmtpModel, on_delete=models.SET_NULL, null=True)
     lead_list = models.ForeignKey(LeadList, on_delete=models.SET_NULL, null=True)
     is_running = models.BooleanField(default=False)
-    timezone = TimeZoneField(default='CST')  # Use default as per your requirements
-    daily_limit = models.PositiveIntegerField()
+    timezone = TimeZoneField()  # Use default as per your requirements default='CST'
+    daily_limit = models.PositiveIntegerField(default=30)
 
+    sunday = models.BooleanField(default=False)
+    monday = models.BooleanField(default=False)
+    tuesday = models.BooleanField(default=False)
+    wednesday = models.BooleanField(default=False)
+    thursday = models.BooleanField(default=False)
+    friday = models.BooleanField(default=False)
+    saturday = models.BooleanField(default=False)
+    start_time = models.TimeField(default=time(9, 0))  # Default to 9:00 AM
+    end_time = models.TimeField(default=time(17, 0))  # Default to 5:00 PM
+
+    def __str__(self):
+        return self.campaign_name
+
+
+# class CampaignSchedule(models.Model):
+#     campaign = models.OneToOneField(Campaign, on_delete=models.CASCADE, primary_key=True)
+#     sunday = models.BooleanField(default=False)
+#     monday = models.BooleanField(default=False)
+#     tuesday = models.BooleanField(default=False)
+#     wednesday = models.BooleanField(default=False)
+#     thursday = models.BooleanField(default=False)
+#     friday = models.BooleanField(default=False)
+#     saturday = models.BooleanField(default=False)
+#     start_time = models.TimeField()
+#     end_time = models.TimeField()
+
+#     def __str__(self):
+#         return f"{self.campaign.campaign_name} - Schedule"
+        
 # class DailySchedule(models.Model):
 #     campaign = models.ForeignKey(Campaign, on_delete=models.CASCADE)
 #     day_of_week = models.CharField(max_length=10)  # e.g., 'Monday', 'Tuesday', etc.

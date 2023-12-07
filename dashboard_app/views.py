@@ -32,21 +32,29 @@ def save_campaign(request, selected_campaign_id=None):
                 campaign = Campaign.objects.get(id=selected_campaign_id, user=request.user)
             except Campaign.DoesNotExist:
                 raise Http404("Campaign not found")
-            campaign.name = request.POST.get('campaign_name')
-            campaign.sender_email_id = request.POST.get('sender_email')
-            campaign.lead_list_id = request.POST.get('lead_list')
-            campaign.timezone = request.POST.get('timezone')
-            campaign.daily_limit = request.POST.get('daily_limit')
-            campaign.save()
-
-            messages.success(request, 'Campaign edited successfully.', extra_tags='campaign_success')
+            
+            
+            campaign_name = request.POST.get('campaign_name')
+            if Campaign.objects.filter(user=request.user, campaign_name=campaign_name).exists() and campaign_name != campaign.campaign_name:
+                messages.error(request, 'A campaign with this name already exists. Please edit with a unique name.', extra_tags='campaign_error')
+                request.session['selected_campaign_id'] = selected_campaign_id  # Store the selected campaign ID in session
+            else:
+                campaign.campaign_name = request.POST.get('campaign_name')
+                campaign.sender_email_id = request.POST.get('sender_email')
+                campaign.lead_list_id = request.POST.get('lead_list')
+                campaign.timezone = request.POST.get('timezone')
+                campaign.daily_limit = request.POST.get('daily_limit')
+                campaign.save()
+                messages.success(request, 'Campaign edited successfully.', extra_tags='campaign_success')
+                # Clear the session only on successful save
+                if 'selected_campaign_id' in request.session:
+                    del request.session['selected_campaign_id']
 
     return redirect('campaigns')
 
     
 @login_required
 def campaigns(request):
-    
     smtp_list = SmtpModel.objects.filter(user=request.user).order_by('id') # Fetch the data from the SmtpModel and LeadList models
     lead_lists = LeadList.objects.filter(user=request.user).order_by('id') # Retrieve the user's lead lists for the dropdown      
     timezones = [(tz, tz) for tz in pytz.common_timezones] # Get a list of timezones
@@ -54,10 +62,10 @@ def campaigns(request):
 
     if request.method == 'POST':
         campaign_name = request.POST.get('campaign_name')
-        sender_email_id = request.POST.get('sender_email')
-        lead_list_id = request.POST.get('lead_list')
-        timezone = request.POST.get('timezone')
-        daily_limit = request.POST.get('daily_limit')  # Add this line to get daily_limit from the form
+        # sender_email_id = request.POST.get('sender_email')
+        # lead_list_id = request.POST.get('lead_list')
+        # timezone = request.POST.get('timezone')
+        # daily_limit = request.POST.get('daily_limit')  # Add this line to get daily_limit from the form
         delete_campaign = request.POST.get('delete_campaign')
 
         if delete_campaign:
@@ -74,32 +82,37 @@ def campaigns(request):
             except Campaign.DoesNotExist:
                 messages.error(request, 'Campaign not found or you do not have permission to delete it.', extra_tags='delete_error')
 
-
         else:
             # Fetch the related objects
-            sender_email = SmtpModel.objects.get(id=sender_email_id)
-            lead_list = LeadList.objects.get(id=lead_list_id)
-            if Campaign.objects.filter(user=request.user, name=campaign_name).exists():
+            # sender_email = SmtpModel.objects.get(id=sender_email_id)
+            # lead_list = LeadList.objects.get(id=lead_list_id)
+            if Campaign.objects.filter(user=request.user, campaign_name__iexact=campaign_name).exists():
                 messages.error(request, 'A campaign with this name already exists. Please choose a unique name.', extra_tags='campaign_error')
             else:
                 # Create and save the Campaign instance
                 campaign = Campaign.objects.create(
                     user=request.user,
-                    name=campaign_name,
-                    sender_email=sender_email,
-                    lead_list=lead_list,
-                    timezone=timezone,
-                    daily_limit=daily_limit,  # Add this line to set the daily_limit
+                    campaign_name=campaign_name,
+                    # sender_email=sender_email,
+                    # lead_list=lead_list,
+                    # timezone=timezone,
+                    # daily_limit=daily_limit,  # Add this line to set the daily_limit
                 )
                 messages.success(request, 'Campaign created successfully.', extra_tags='campaign_success')
 
-
     campaigns = Campaign.objects.filter(user=request.user).order_by('id') # Retrieve the user's lead lists for the dropdown
-    selected_campaign_id = request.GET.get('name')  # Handle lead list selection SUBMIT from the existing dropdown
+    selected_campaign_id = request.GET.get('campaign_name')  # Handle lead list selection SUBMIT from the existing dropdown
+    if not selected_campaign_id:
+        selected_campaign_id = request.session.get('selected_campaign_id')  # Retrieve the selected campaign ID from session
     if selected_campaign_id:
         try:
             selected_campaign = Campaign.objects.get(id=selected_campaign_id, user=request.user)
-            campaign_name = selected_campaign.name
+            campaign_name = selected_campaign.campaign_name
+            # Check if the selected campaign is running
+            if selected_campaign.is_running:
+                messages.error(request, 'Cannot edit a running campaign.', extra_tags='campaign_error')
+                selected_campaign = None  # Reset selected_campaign if it is running
+                campaign_name = None
         except Campaign.DoesNotExist:
             selected_campaign = None
             campaign_name = None

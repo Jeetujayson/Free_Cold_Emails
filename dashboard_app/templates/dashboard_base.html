@@ -68,7 +68,7 @@
     <li><a {% if request.path == '/accounts/dashboard/' %}class="active"{% endif %} href="{% url 'dashboard' %}">Your Emails</a></li>
     <li><a {% if request.path == '/accounts/dashboard/leads/' %}class="active"{% endif %} href="{% url 'leads' %}">Load Leads</a></li>    
     <li><a {% if request.path == '/accounts/dashboard/campaigns/' %}class="active"{% endif %} href="{% url 'campaigns' %}">Campaigns</a></li>
-    <li><a {% if request.path == '/accounts/dashboard/schedule/' %}class="active"{% endif %} href="{% url 'schedule' %}">Schedule</a></li>
+    <li><a {% if request.path == '/accounts/dashboard/schedule/' %}class="active"{% endif %} href="{% url 'schedule' %}">Run</a></li>
 
   </ul>
 </nav>
